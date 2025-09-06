@@ -229,20 +229,7 @@ export default function Home() {
               <p className="text-base sm:text-lg text-gray-400 max-w-md">
                 {slides[index].text}
               </p>
-              <div className="flex gap-3 sm:gap-4 flex-wrap">
-                <a
-                  href="#waitlist"
-                  className="px-5 sm:px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
-                >
-                  {slides[index].primaryCta}
-                </a>
-                <Link
-                  href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-                  className="px-5 sm:px-6 py-3 rounded-xl border border-white/20 hover:border-emerald-400/70 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
-                >
-                  {slides[index].secondaryCta}
-                </Link>
-              </div>
+              
             </motion.div>
           </AnimatePresence>
         </div>
@@ -517,7 +504,7 @@ export default function Home() {
               Stay connected with updates and community discussions.
             </p>
              <form
-              className="flex gap-2"
+              className="flex flex-col gap-2 sm:flex-row"
               onSubmit={async (e) => {
                 e.preventDefault();
                 setNewsletterLoading(true);
@@ -549,17 +536,17 @@ export default function Home() {
                 setNewsletterLoading(false);
               }}
             >
-              <input
+               <input
                 id="footer-email"
                 type="email"
                 placeholder="Your email"
                 required
-                className="flex-1 px-4 py-3 rounded-xl bg-white/5 border border-white/20 placeholder:text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+                className="w-full sm:w-auto px-4 py-3 rounded-xl bg-white/5 border border-white/20 placeholder:text-gray-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
               />
               <button
                 type="submit"
                 disabled={newsletterLoading}
-                className={`px-4 py-3 rounded-xl font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
+                className={`w-full sm:w-auto px-4 py-3 rounded-xl font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400 ${
                   newsletterLoading
                     ? "bg-emerald-400/60 text-white cursor-not-allowed"
                     : "bg-emerald-500 hover:bg-emerald-400 text-white"
