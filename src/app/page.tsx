@@ -1,11 +1,12 @@
 "use client";
+export const dynamic = "force-dynamic";
 
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence, easeOut } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Alert from "@/app/Alert";
-import { supabase } from "@/lib/supabaseClient";
+
 
 type WaitlistResult = { success: true } | { success: false; message: string };
 
@@ -63,38 +64,32 @@ async function submitWaitlist(data: {
   interest?: FormDataEntryValue | null;
 }): Promise<WaitlistResult> {
   try {
-    const { error } = await supabase.from("waitlist").insert({
-      name: data.name,
-      email: data.email,
-      phone_number: data.phone_number,
-      interest: data.interest,
-    });
-
-    if (error) {
-      if (error.code === "23505") {
-        return {
-          success: false,
-          message: "This email is already on the waitlist.",
-        };
-      }
-      return { success: false, message: error.message };
-    }
-
-    // send confirmation email
-     fetch("/api/send-waitlist-email", {
+    const res = await fetch("/api/waitlist", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        email: data.email,
         name: data.name,
+        email: data.email,
+        phone_number: data.phone_number,
+        interest: data.interest,
       }),
     });
+
+    const result = await res.json();
+
+    if (!res.ok) {
+      return {
+        success: false,
+        message: result.message || "Something went wrong",
+      };
+    }
 
     return { success: true };
   } catch {
     return { success: false, message: "Network error" };
   }
 }
+
 
 
 export default function Home() {
