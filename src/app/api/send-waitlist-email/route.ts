@@ -1,14 +1,16 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
 
-const transporter = nodemailer.createTransport({
-  host: process.env.MAILTRAP_HOST,
-  port: Number(process.env.MAILTRAP_PORT),
-  auth: {
-    user: process.env.MAILTRAP_USER,
-    pass: process.env.MAILTRAP_PASS,
-  },
-});
+function getTransporter() {
+  return nodemailer.createTransport({
+    host: process.env.MAILTRAP_HOST,
+    port: Number(process.env.MAILTRAP_PORT),
+    auth: {
+      user: process.env.MAILTRAP_USER,
+      pass: process.env.MAILTRAP_PASS,
+    },
+  });
+}
 
 export async function POST(req: Request) {
   try {
@@ -19,7 +21,8 @@ export async function POST(req: Request) {
     }
 
     // 🔥 FIRE-AND-FORGET EMAIL (NO AWAIT)
-    transporter
+    const transporter = getTransporter();
+   await transporter
       .sendMail({
         from: process.env.MAIL_FROM,
         to: email,
