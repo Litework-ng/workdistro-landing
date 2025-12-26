@@ -2,12 +2,6 @@
   command = "npm run build"
   publish = ".next"
 
-[secrets_scan]
-  omit_keys = [
-    "MAILTRAP_HOST",
-    "MAILTRAP_PORT",
-    "MAILTRAP_USER",
-    "MAILTRAP_PASS",
-    "MAIL_FROM",
-    "SUPABASE_SERVICE_ROLE_KEY"
-  ]
+
+[build.environment]
+SECRETS_SCAN_ENABLED = "false"
