@@ -1,30 +1,26 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
-import nodemailer from "nodemailer";
+import { Resend } from "resend";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
-const transporter = nodemailer.createTransport({
-  host: process.env.MAILTRAP_HOST,
-  port: Number(process.env.MAILTRAP_PORT),
-  auth: {
-    user: process.env.MAILTRAP_USER,
-    pass: process.env.MAILTRAP_PASS,
-  },
-});
+const resend = new Resend(process.env.RESEND_API_KEY!);
 
 export async function POST(req: Request) {
   try {
     const body = await req.json();
 
+    const { name, email, phone_number, interest } = body;
+
+    // 1️⃣ Insert into Supabase
     const { error } = await supabase.from("waitlist").insert({
-      name: body.name,
-      email: body.email,
-      phone_number: body.phone_number,
-      interest: body.interest,
+      name,
+      email,
+      phone_number,
+      interest,
     });
 
     if (error) {
@@ -41,10 +37,10 @@ export async function POST(req: Request) {
       );
     }
 
-    // ✅ SEND EMAIL DIRECTLY (no extra API call)
-    transporter.sendMail({
-      from: process.env.MAIL_FROM,
-      to: body.email,
+    // 2️⃣ Send email via Resend
+    await resend.emails.send({
+      from: "Workdistro <hello@workdistroapp.com>", 
+      to: email,
       subject: "You’re in! Let’s Do More, Stress Less 🚀",
       html: `
 <!DOCTYPE html>
@@ -64,8 +60,9 @@ export async function POST(req: Request) {
             <tr>
               <td>
                 <h1 style="color:#fff;">You’re in! Let’s Do More, Stress Less 💪</h1>
+
                 <p style="color:#d1d5db;">
-                  Hey${body.name ? ` ${body.name}` : ""}! 👋<br /><br />
+                  Hey${name ? ` ${name}` : ""}! 👋<br /><br />
                   You’ve officially joined the <strong>Workdistro</strong> squad.
                 </p>
 
@@ -94,9 +91,7 @@ export async function POST(req: Request) {
     </table>
   </body>
 </html>
-        `,
-    }).catch(err => {
-      console.error("Email error:", err);
+      `,
     });
 
     return NextResponse.json({ success: true });
