@@ -83,31 +83,41 @@ export default function FormShell({ steps, data, setData }: Props) {
   }
 
   // Handle submission via Netlify function
-  async function handleSubmit() {
-    setErrorMessage(null)
-    setIsSubmitting(true)
-    try {
-      const response = await fetch("/.netlify/functions/submitBooking", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, estimatedPrice }),
-      })
+ async function handleSubmit() {
+  setErrorMessage(null)
+  setIsSubmitting(true)
 
-      const result = await response.json()
-      if (!response.ok) {
-        console.error(result.error)
-        setErrorMessage("Something went wrong. Please try again.")
-        return
-      }
+  try {
+    const response = await fetch("/.netlify/functions/submitBooking", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ ...data, estimatedPrice }),
+    })
 
-      setSubmitted(true)
-    } catch (err: any) {
-      console.error(err)
-      setErrorMessage("Unexpected error. Please try again later.")
-    } finally {
-      setIsSubmitting(false)
+    // 🔐 Netlify-safe content check
+    const contentType = response.headers.get("content-type")
+    const isJson = contentType?.includes("application/json")
+
+    const result = isJson ? await response.json() : null
+
+    if (!response.ok) {
+      console.error("Submission failed:", result)
+      setErrorMessage(
+        result?.error ??
+          "Submission failed. Please try again in a moment."
+      )
+      return
     }
+
+    setSubmitted(true)
+  } catch (err) {
+    console.error("Network / function error:", err)
+    setErrorMessage("Network error. Please check your connection.")
+  } finally {
+    setIsSubmitting(false)
   }
+}
+
 
   // --- Render welcome step ---
   if (index === -1) {
