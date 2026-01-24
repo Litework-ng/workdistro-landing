@@ -1,9 +1,12 @@
 @import "tailwindcss";
 
-/* Base tokens */
+/* Base tokens — LOCKED */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+
+  /* Tell browsers we only support light UI */
+  color-scheme: light;
 }
 
 /* Tailwind theme tokens */
@@ -13,15 +16,6 @@
 
   --color-primary-500: #1F2A47;
   --color-accent-500: #31DE9E;
-  
-}
-
-/* Dark mode variables */
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 body {
