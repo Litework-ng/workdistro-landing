@@ -94,10 +94,13 @@ async function submitApplication(data: ApplicationData) {
     body: JSON.stringify(data),
   })
 
+  const result = await res.json()
+
   if (!res.ok) {
-    throw new Error("Failed to submit application")
+    throw new Error(result?.error ?? "Submission failed")
   }
 }
+
 
 export default function ApplicationPage() {
   const [data, setData] = useState<ApplicationData>({})

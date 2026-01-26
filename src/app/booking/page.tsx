@@ -43,10 +43,12 @@ const STEPS = [
       !!data.grocery?.list && !!data.grocery?.budget,
   },
   {
-    id: "schedule",
-    component: ScheduleStep,
-    isValid: (data: BookingData) => !!data.schedule?.date,
-  },
+  id: "schedule",
+  component: ScheduleStep,
+  isValid: (data: BookingData) =>
+    !!data.schedule?.date && !!data.schedule?.time,
+},
+
   {
     id: "contact",
     component: ContactStep,

@@ -7,6 +7,8 @@ type Props = {
   setData: React.Dispatch<React.SetStateAction<BookingData>>
 }
 
+  const today = new Date().toISOString().split("T")[0]
+
 export default function ScheduleStep({ data, setData }: Props) {
   const schedule = data.schedule ?? {}
 const inputClass =
@@ -26,6 +28,7 @@ const inputClass =
 
         <input
           type="date"
+          min={today}
           value={schedule.date ?? ""}
           onChange={(e) =>
             setData((prev) => ({

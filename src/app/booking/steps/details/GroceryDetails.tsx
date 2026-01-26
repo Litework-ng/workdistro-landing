@@ -17,6 +17,17 @@ export default function GroceryDetails({
   const inputClass =
     "w-full rounded-xl border border-gray-300 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-accent-500 focus:border-accent-500"
 
+    function formatNumber(value: string) {
+  const digitsOnly = value.replace(/\D/g, "")
+  if (!digitsOnly) return ""
+  return Number(digitsOnly).toLocaleString("en-NG")
+}
+
+function parseNumber(value: string) {
+  const digitsOnly = value.replace(/\D/g, "")
+  return digitsOnly ? Number(digitsOnly) : undefined
+}
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -52,6 +63,7 @@ export default function GroceryDetails({
       </div>
 
       {/* Budget */}
+
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
           Estimated budget for items
@@ -59,22 +71,28 @@ export default function GroceryDetails({
         <p className="text-xs text-gray-500 mb-2">
           Not including service fee
         </p>
+
         <input
-          type="number"
+          type="text"
+          inputMode="numeric"
           className={inputClass}
-          placeholder="₦"
-          value={grocery.budget ?? ""}
-          onChange={(e) =>
+          placeholder="₦10,000"
+          value={
+            grocery.budget !== undefined
+              ? formatNumber(String(grocery.budget))
+              : ""
+          }
+          onChange={(e) => {
+            const rawValue = e.target.value
+
             setData((prev) => ({
               ...prev,
               grocery: {
                 ...grocery,
-                budget: e.target.value
-                  ? Number(e.target.value)
-                  : undefined,
+                budget: parseNumber(rawValue),
               },
             }))
-          }
+          }}
         />
       </div>
 
