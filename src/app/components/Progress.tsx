@@ -9,7 +9,7 @@ export default function Progress({ current, total }: Props) {
   const percentage = Math.round((current / total) * 100)
 
   return (
-    <div className="w-full py-4">
+    <div className="w-full p-4">
       <div className="text-sm text-gray-500 mb-2">
         Step {current} of {total}
       </div>
