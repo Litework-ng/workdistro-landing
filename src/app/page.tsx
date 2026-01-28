@@ -15,22 +15,23 @@ const slides = [
   {
     id: "clients",
     badge: "For Clients",
-    title: "Find the right professional fast.",
-    text: "Connect with skilled professionals tailored to your needs. Seamlessly bridging the gap between talent and opportunity.",
+    title: "Get Work Done Faster",
+    text: "Workdistro connects you with vetted professionals you can trust. Save time, reduce risk, and stay focused on what matters while reliable experts handle your tasks.",
     primaryCta: "Discover Services",
-    secondaryCta: "Join Community",
+    secondaryCta: "Join Waitlist",
     image: "/images/heroImg1.jpg",
   },
   {
     id: "workers",
     badge: "For Professionals",
-    title: "Expand your reach & grow.",
-    text: "Showcase your skills, get matched with opportunities, and build lasting client relationships.",
+    title: "Work With Clients Who Value Your Expertise",
+    text: "Join Workdistro as a verified professional and get access to serious clients, quality jobs, and a trusted platform to grow your portfolio and income.",
     primaryCta: "Join as a Professional",
-    secondaryCta: "Join Community",
+    secondaryCta: "Join Waitlist",
     image: "/images/heroImg2.jpg",
   },
 ];
+
 
 /* ------------------------------- Variants ------------------------------- */
 const fadeUp = {
@@ -148,15 +149,16 @@ export default function Home() {
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-3">
-            <a
+           <Link
               href="#waitlist"
-              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
             >
               Join Waitlist
-            </a>
+            </Link>
+
             <Link
               href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-              className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus:outline-none focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition"
             >
               Join Community
             </Link>
@@ -201,15 +203,16 @@ export default function Home() {
               className="md:hidden overflow-hidden border-t border-white/10"
             >
               <div className="px-4 py-3 grid gap-2 bg-slate-950/95">
-                <a
+                <Link
                   href="#waitlist"
-                  className="block w-full text-center px-4 py-2 rounded-xl border border-white/20 hover:border-emerald-400/70 transition"
+                  className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
                 >
                   Join Waitlist
-                </a>
+                </Link>
+
                 <Link
                   href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-                  className="block w-full text-center px-4 py-2 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition"
+                  className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition"
                 >
                   Join Community
                 </Link>
@@ -291,20 +294,21 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 About Us
               </h2>
-              <p className="text-gray-400 mb-8">
-                Workdistro is an efficient and innovative marketplace where you can
-                outsource your tasks to skilled service providers. Whether you&apos;re a
-                student, a busy professional, or just need an extra hand, we&apos;ve got
-                you covered.
-              </p>
+                <p className="text-gray-400 mb-8">
+                  Workdistro is an efficient and innovative marketplace where you can outsource
+                  tasks to skilled service professionals and connect with new clients for job
+                  opportunities.
+                </p>
+
               <ul className="space-y-3 text-gray-300">
-                {[
-                  { title: "Secure", desc: "Safe transactions & data conscious." },
-                  { title: "Value-based", desc: "Transparent pricing, clear deliverables." },
-                  { title: "Reliable", desc: "Verified professionals, timely delivery." },
-                  { title: "User-centered", desc: "Straightforward flows built for speed." },
-                ].map((item) => (
-                  <li key={item.title} className="flex items-start gap-3">
+                  {[
+                      { title: "Reliable", desc: "Verified professionals, timely delivery." },
+                      { title: "Secure", desc: "Safe transactions & data security." },
+                      { title: "Value-based", desc: "Transparent pricing, clear deliverables." },
+                      { title: "Diverse", desc: "Wide range of services across industries and skill sets." },
+                    ]
+                    .map((item) => (
+                                      <li key={item.title} className="flex items-start gap-3">
                     <span className="mt-2 w-2 h-2 rounded-full bg-emerald-500" />
                     <span>
                       <span className="font-semibold">{item.title}:</span>{" "}
@@ -373,8 +377,9 @@ export default function Home() {
             Join Our Waitlist
           </h2>
           <p className="text-gray-400 mb-8">
-            Be the first to experience the new way of connecting with professionals.
+            Be among the first to access vetted professionals and high-quality work.
           </p>
+
 
                <form
             className="space-y-4 text-left"
@@ -521,9 +526,11 @@ export default function Home() {
             </Link>
 
             <p className="text-sm text-gray-400 mt-1 max-w-sm leading-relaxed">
-              Workdistro is an efficient and innovative marketplace where you can
-              outsource your tasks to skilled service providers.
+              Workdistro is a skill-based services marketplace that makes it easy for people
+              to find trusted professionals for tasks and for service providers to connect
+              with new clients.
             </p>
+
           </div>
 
           <div className="space-y-3">
@@ -555,6 +562,14 @@ export default function Home() {
               <Link className="hover:text-white" href="https://www.linkedin.com/company/workdistro/">
                 LinkedIn
               </Link>
+              <Link
+                className="hover:text-white"
+                href="https://www.tiktok.com/@workdistro"
+                target="_blank"
+              >
+                TikTok
+              </Link>
+
             </div>
           </div>
         </div>
