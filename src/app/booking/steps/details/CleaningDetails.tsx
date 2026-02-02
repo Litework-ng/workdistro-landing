@@ -83,8 +83,9 @@ export default function CleaningDetails({
                 ...cleaning,
                 extras: e.target.value
                   ? e.target.value
-                      .split(",")
+                      .split(/\s*,\s*|;|\n/)
                       .map((v) => v.trim())
+                      .filter(Boolean)
                   : [],
               },
             }))
