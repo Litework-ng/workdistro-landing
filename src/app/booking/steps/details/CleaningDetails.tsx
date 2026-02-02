@@ -73,24 +73,20 @@ export default function CleaningDetails({
           Deep cleaning, pets, sensitive surfaces, etc.
         </p>
         <textarea
-          rows={3}
-          className={inputClass}
-          value={cleaning.extras?.join(", ") ?? ""}
-          onChange={(e) =>
-            setData((prev) => ({
-              ...prev,
-              cleaning: {
-                ...cleaning,
-                extras: e.target.value
-                  ? e.target.value
-                      .split(/\s*,\s*|;|\n/)
-                      .map((v) => v.trim())
-                      .filter(Boolean)
-                  : [],
-              },
-            }))
-          }
-        />
+  rows={3}
+  className={inputClass}
+  placeholder="Deep cleaning, pets, sensitive surfaces, etc."
+  value={(cleaning.extras ?? []).join(", ")}
+  onChange={(e) =>
+    setData((prev) => ({
+      ...prev,
+      cleaning: {
+        ...cleaning,
+        extras: e.target.value.split(",").map(s => s.trim()).filter(s => s),
+      },
+    }))
+  }
+/>
       </div>
 
       {/* Notes */}
