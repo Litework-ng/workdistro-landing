@@ -82,7 +82,7 @@ export default function CleaningDetails({
                 ...prev,
                 cleaning: {
                   ...cleaning,
-                  extrasText: e.target.value.trim(),
+                  extrasText: e.target.value,
                 },
               }))
             }
