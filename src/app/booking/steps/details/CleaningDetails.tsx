@@ -22,7 +22,7 @@ export default function CleaningDetails({
       {/* Header */}
       <div>
         <h2 className="text-xl font-semibold text-primary-500">
-          Cleaning details 🧼
+          Cleaning details 🏠
         </h2>
         <p className="text-sm text-gray-500">
           Help us understand your space so we can prepare properly
@@ -72,21 +72,22 @@ export default function CleaningDetails({
         <p className="text-xs text-gray-500 mb-2">
           Deep cleaning, pets, sensitive surfaces, etc.
         </p>
-        <textarea
-  rows={3}
-  className={inputClass}
-  placeholder="Deep cleaning, pets, sensitive surfaces, etc."
-  value={(cleaning.extras ?? []).join(", ")}
-  onChange={(e) =>
-    setData((prev) => ({
-      ...prev,
-      cleaning: {
-        ...cleaning,
-        extras: e.target.value.split(",").map(s => s.trim()).filter(s => s),
-      },
-    }))
-  }
-/>
+          <textarea
+            rows={3}
+            className={inputClass}
+            placeholder="Deep cleaning, pets, sensitive surfaces, etc."
+            value={cleaning.extrasText ?? ""}
+            onChange={(e) =>
+              setData((prev) => ({
+                ...prev,
+                cleaning: {
+                  ...cleaning,
+                  extrasText: e.target.value.trim(),
+                },
+              }))
+            }
+
+          />
       </div>
 
       {/* Notes */}

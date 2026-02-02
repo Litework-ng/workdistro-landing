@@ -3,6 +3,7 @@ export type ServiceType = "cleaning" | "laundry" | "grocery"
 /* ---------- Cleaning ---------- */
 export type CleaningDetails = {
   size?: "studio" | "1-bedroom" | "2-bedroom" | "3-bedroom"
+  extrasText?: string
   extras?: string[]          // e.g. deep clean, pets
   notes?: string             // free text
 }

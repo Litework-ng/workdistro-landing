@@ -37,17 +37,10 @@ export default function ReviewStep({ data }: Props) {
             {humanizeCleaningSize(data.cleaning.size)}
           </Row>
 
-          {data.cleaning.extras?.length ? (
-            <div>
-              <p className="text-sm text-gray-600 mb-1">
-                Special requirements
-              </p>
-              <ul className="list-disc list-inside text-sm text-gray-700">
-                {data.cleaning.extras.map((extra) => (
-                  <li key={extra}>{extra}</li>
-                ))}
-              </ul>
-            </div>
+          {data.cleaning.extrasText ? (
+            <Row label="Special requirements">
+              {data.cleaning.extrasText}
+            </Row>
           ) : (
             <Muted>No special requirements added</Muted>
           )}
