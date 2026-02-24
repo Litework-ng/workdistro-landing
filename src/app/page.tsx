@@ -17,8 +17,8 @@ const slides = [
     badge: "For Clients",
     title: "Get Work Done Faster",
     text: "Workdistro connects you with vetted professionals you can trust. Save time, reduce risk, and stay focused on what matters while reliable experts handle your tasks.",
-    primaryCta: "Discover Services",
-    secondaryCta: "Join Waitlist",
+    primaryCta: { label: "Book a Service →", href: "/booking" },
+    secondaryCta: { label: "Join Waitlist", href: "#waitlist" },
     image: "/images/heroImg1.jpg",
   },
   {
@@ -26,8 +26,8 @@ const slides = [
     badge: "For Professionals",
     title: "Work With Clients Who Value Your Expertise",
     text: "Join Workdistro as a verified professional and get access to serious clients, quality jobs, and a trusted platform to grow your portfolio and income.",
-    primaryCta: "Join as a Professional",
-    secondaryCta: "Join Waitlist",
+    primaryCta: { label: "Apply Now →", href: "/application" },
+    secondaryCta: { label: "Join Waitlist", href: "#waitlist" },
     image: "/images/heroImg2.jpg",
   },
 ];
@@ -51,11 +51,6 @@ const fadeScale = {
     transition: { duration: 0.7, ease: easeOut },
   },
 };
-
-
-
-
-
 
 
 async function submitWaitlist(data: {
@@ -102,7 +97,8 @@ export default function Home() {
   message: string;
   type?: "success" | "error" | "info";
 }>({ show: false, message: "", type: "info" });
-  // Auto-rotate every 6s
+
+  // Auto-rotate every 8s
   useEffect(() => {
     const timer = setInterval(() => {
       setIndex((prev) => (prev + 1) % slides.length);
@@ -119,13 +115,13 @@ export default function Home() {
 
   return (
     <main className="bg-slate-950 text-gray-200 font-sans">
-      {/* Decorative background lights (subtle, non-blocking) */}
+      {/* Decorative background lights */}
       <div aria-hidden="true" className="pointer-events-none fixed inset-0 -z-10">
         <div className="absolute -top-24 -left-16 h-72 w-72 rounded-full bg-emerald-500/10 blur-3xl" />
         <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-cyan-400/10 blur-3xl" />
       </div>
 
-      {/* Skip link for accessibility */}
+      {/* Skip link */}
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:px-3 focus:py-2 focus:rounded-lg focus:bg-white focus:text-slate-900"
@@ -133,32 +129,46 @@ export default function Home() {
         Skip to content
       </a>
 
-      {/* Navbar */}
+      {/* ── Navbar ─────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-50 backdrop-blur supports-[backdrop-filter]:bg-slate-950/70 bg-slate-950/90 border-b border-white/10">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-4 py-3">
-        <Link href="/" aria-label="Workdistro Home" className="shrink-0 flex items-center">
-          <Image
-            src="/images/logowhite.png"
-            alt="Workdistro Logo"
-            width={240}       // wider intrinsic size
-            height={72}
-            priority
-            className="h-12 sm:h-14 md:h-16 lg:h-28 w-auto"
-          />
-        </Link>
+          <Link href="/" aria-label="Workdistro Home" className="shrink-0 flex items-center">
+            <Image
+              src="/images/logowhite.png"
+              alt="Workdistro Logo"
+              width={240}
+              height={72}
+              priority
+              className="h-12 sm:h-14 md:h-16 lg:h-28 w-auto"
+            />
+          </Link>
 
           {/* Desktop Nav */}
           <nav className="hidden md:flex items-center gap-3">
-           <Link
+            <Link
+              href="/booking"
+              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition text-sm"
+            >
+              Book a Service
+            </Link>
+
+            <Link
+              href="/application"
+              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition text-sm"
+            >
+              Apply as a Pro
+            </Link>
+
+            <Link
               href="#waitlist"
-              className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
+              className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400 text-sm"
             >
               Join Waitlist
             </Link>
 
             <Link
               href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition"
+              className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition text-sm"
             >
               Join Community
             </Link>
@@ -204,15 +214,31 @@ export default function Home() {
             >
               <div className="px-4 py-3 grid gap-2 bg-slate-950/95">
                 <Link
+                  href="/booking"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 rounded-full border border-white/20 text-center hover:border-emerald-400/70 transition text-sm"
+                >
+                  Book a Service
+                </Link>
+
+                <Link
+                  href="/application"
+                  onClick={() => setMenuOpen(false)}
+                  className="px-4 py-2 rounded-full border border-white/20 text-center hover:border-emerald-400/70 transition text-sm"
+                >
+                  Apply as a Pro
+                </Link>
+
+                <Link
                   href="#waitlist"
-                  className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
+                  className="px-4 py-2 rounded-full bg-emerald-500 text-white font-semibold text-center hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
                 >
                   Join Waitlist
                 </Link>
 
                 <Link
                   href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-                  className="px-4 py-2 rounded-full border border-white/20 hover:border-emerald-400/70 transition"
+                  className="px-4 py-2 rounded-full border border-white/20 text-center hover:border-emerald-400/70 transition"
                 >
                   Join Community
                 </Link>
@@ -222,7 +248,7 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
-      {/* Hero Section */}
+      {/* ── Hero Section ───────────────────────────────────────────── */}
       <section
         id="main"
         className="max-w-6xl mx-auto px-4 pt-14 pb-16 md:pt-20 md:pb-20 grid md:grid-cols-2 gap-10 items-center min-h-[70vh]"
@@ -246,7 +272,36 @@ export default function Home() {
               <p className="text-base sm:text-lg text-gray-400 max-w-md">
                 {slides[index].text}
               </p>
-              
+
+              {/* Hero CTAs — wired up to booking / application */}
+              <div className="flex flex-wrap gap-3 pt-2">
+                <Link
+                  href={slides[index].primaryCta.href}
+                  className="px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400"
+                >
+                  {slides[index].primaryCta.label}
+                </Link>
+                <Link
+                  href={slides[index].secondaryCta.href}
+                  className="px-6 py-3 rounded-xl border border-white/20 hover:border-emerald-400/70 transition"
+                >
+                  {slides[index].secondaryCta.label}
+                </Link>
+              </div>
+
+              {/* Slide dots */}
+              <div className="flex gap-2 pt-1">
+                {slides.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setIndex(i)}
+                    aria-label={`Go to slide ${i + 1}`}
+                    className={`w-2 h-2 rounded-full transition-all ${
+                      i === index ? "bg-emerald-500 w-5" : "bg-white/20"
+                    }`}
+                  />
+                ))}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>
@@ -272,10 +327,120 @@ export default function Home() {
             </motion.div>
           </AnimatePresence>
         </div>
-
       </section>
 
-      {/* About Section */}
+      {/* ── Get Started Split-Path Section ─────────────────────────── */}
+      <motion.section
+        id="get-started"
+        className="border-t border-white/10 py-16 md:py-20"
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+        variants={fadeUp}
+      >
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="text-center mb-10">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-3">
+              Ready to get started?
+            </h2>
+            <p className="text-gray-400 max-w-md mx-auto">
+              Whether you need something done or want to offer your skills — we've got you covered.
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-2 gap-6">
+            {/* Client card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.05 }}
+              viewport={{ once: true }}
+              className="relative rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-emerald-500/50 transition group overflow-hidden"
+            >
+              {/* Subtle glow */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-2xl group-hover:bg-emerald-500/20 transition" />
+
+              <div className="relative">
+                <div className="text-4xl mb-4">🏠</div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-emerald-100 mb-2">
+                  For Clients
+                </p>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  Need something done?
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  Book trusted help for cleaning, laundry, grocery shopping and more. 
+                  Fast, reliable, and stress-free.
+                </p>
+
+                <ul className="space-y-2 text-sm text-gray-300 mb-8">
+                  {["Home cleaning", "Laundry & ironing", "Grocery shopping"].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="/booking"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition focus-visible:ring-2 focus-visible:ring-emerald-400 w-full justify-center"
+                >
+                  Book a Service
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <p className="text-xs text-gray-500 text-center mt-3">Takes under 2 minutes</p>
+              </div>
+            </motion.div>
+
+            {/* Pro card */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15 }}
+              viewport={{ once: true }}
+              className="relative rounded-3xl border border-white/10 bg-white/5 p-8 hover:border-yellow-300/50 transition group overflow-hidden"
+            >
+              {/* Subtle glow */}
+              <div className="absolute -top-10 -right-10 w-40 h-40 bg-yellow-300/10 rounded-full blur-2xl group-hover:bg-yellow-300/20 transition" />
+
+              <div className="relative">
+                <div className="text-4xl mb-4">💼</div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-yellow-200 mb-2">
+                  For Professionals
+                </p>
+                <h3 className="text-xl font-bold text-white mb-3">
+                  Want to earn with your skills?
+                </h3>
+                <p className="text-gray-400 text-sm leading-relaxed mb-6">
+                  Join our vetted network of service providers. Get matched with clients 
+                  in your area and grow your income on your own schedule.
+                </p>
+
+                <ul className="space-y-2 text-sm text-gray-300 mb-8">
+                  {["Flexible hours", "Keep 85% of every job", "WhatsApp job notifications"].map((item) => (
+                    <li key={item} className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-yellow-300 shrink-0" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+
+                <Link
+                  href="/application"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-white/10 border border-white/20 text-white font-semibold hover:bg-white/15 hover:border-yellow-300/50 transition focus-visible:ring-2 focus-visible:ring-yellow-300 w-full justify-center"
+                >
+                  Apply as a Pro
+                  <span aria-hidden="true">→</span>
+                </Link>
+                <p className="text-xs text-gray-500 text-center mt-3">Free to apply · Takes 3–5 mins</p>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </motion.section>
+
+      {/* ── About Section ──────────────────────────────────────────── */}
       <motion.section
         className="border-t border-white/10 py-16 md:py-20"
         initial="hidden"
@@ -294,21 +459,20 @@ export default function Home() {
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
                 About Us
               </h2>
-                <p className="text-gray-400 mb-8">
-                  Workdistro is an efficient and innovative marketplace where you can outsource
-                  tasks to skilled service professionals and connect with new clients for job
-                  opportunities.
-                </p>
+              <p className="text-gray-400 mb-8">
+                Workdistro is an efficient and innovative marketplace where you can outsource
+                tasks to skilled service professionals and connect with new clients for job
+                opportunities.
+              </p>
 
               <ul className="space-y-3 text-gray-300">
-                  {[
-                      { title: "Reliable", desc: "Verified professionals, timely delivery." },
-                      { title: "Secure", desc: "Safe transactions & data security." },
-                      { title: "Value-based", desc: "Transparent pricing, clear deliverables." },
-                      { title: "Diverse", desc: "Wide range of services across industries and skill sets." },
-                    ]
-                    .map((item) => (
-                                      <li key={item.title} className="flex items-start gap-3">
+                {[
+                  { title: "Reliable", desc: "Verified professionals, timely delivery." },
+                  { title: "Secure", desc: "Safe transactions & data security." },
+                  { title: "Value-based", desc: "Transparent pricing, clear deliverables." },
+                  { title: "Diverse", desc: "Wide range of services across industries and skill sets." },
+                ].map((item) => (
+                  <li key={item.title} className="flex items-start gap-3">
                     <span className="mt-2 w-2 h-2 rounded-full bg-emerald-500" />
                     <span>
                       <span className="font-semibold">{item.title}:</span>{" "}
@@ -363,7 +527,7 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Waitlist Section */}
+      {/* ── Waitlist Section ───────────────────────────────────────── */}
       <motion.section
         id="waitlist"
         className="border-t border-white/10 py-16 md:py-20 scroll-mt-20"
@@ -380,8 +544,7 @@ export default function Home() {
             Be among the first to access vetted professionals and high-quality work.
           </p>
 
-
-               <form
+          <form
             className="space-y-4 text-left"
             onSubmit={async (e) => {
               e.preventDefault();
@@ -396,32 +559,30 @@ export default function Home() {
                 interest: formData.get("interest"),
               };
 
-             const result = await submitWaitlist(data);
+              const result = await submitWaitlist(data);
               if (result.success) {
                 setAlert({
                   show: true,
                   message:
-                    "🎉 You’re on the waitlist! Join our WhatsApp community to get updates first.",
+                    "🎉 You're on the waitlist! Join our WhatsApp community to get updates first.",
                   type: "success",
                 });
 
                 form.reset();
 
-                // Optional: auto-open community after a short delay
                 setTimeout(() => {
                   window.open(
                     "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM",
                     "_blank"
                   );
                 }, 3000);
-              }
-              else {
+              } else {
                 setAlert({ show: true, message: `❌ Error: ${result.message}`, type: "error" });
               }
-              setWaitlistLoading(false)
+              setWaitlistLoading(false);
             }}
           >
-              <label className="block">
+            <label className="block">
               <span className="sr-only">Full name</span>
               <input
                 type="text"
@@ -510,12 +671,12 @@ export default function Home() {
         </div>
       </motion.section>
 
-      {/* Footer */}
+      {/* ── Footer ─────────────────────────────────────────────────── */}
       <footer id="community" className="border-t border-white/10 py-14 md:py-16">
         <div className="max-w-6xl mx-auto px-4 grid gap-10 md:grid-cols-2">
           <div>
             <Link href="/" aria-label="Workdistro Home" className="shrink-0 inline-block">
-             <Image
+              <Image
                 src="/images/logowhite.png"
                 alt="Workdistro Logo"
                 width={200}
@@ -531,24 +692,33 @@ export default function Home() {
               with new clients.
             </p>
 
+            {/* Quick links in footer */}
+            <div className="flex gap-4 mt-4">
+              <Link href="/booking" className="text-sm text-emerald-400 hover:text-emerald-300 transition">
+                Book a Service
+              </Link>
+              <Link href="/application" className="text-sm text-emerald-400 hover:text-emerald-300 transition">
+                Apply as a Pro
+              </Link>
+            </div>
           </div>
 
           <div className="space-y-3">
             <h3 className="font-semibold text-white">Join our community</h3>
-              <p className="text-sm text-gray-400">
-                Get updates, early access announcements, and connect with other early users.
-              </p>
-              <Link
-                  href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
-                  target="_blank"
-                  className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition"
-                >
-                  Join Community
-                </Link>
+            <p className="text-sm text-gray-400">
+              Get updates, early access announcements, and connect with other early users.
+            </p>
+            <Link
+              href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM"
+              target="_blank"
+              className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-emerald-500 text-white font-semibold hover:bg-emerald-400 transition"
+            >
+              Join Community
+            </Link>
 
-                <p className="text-xs text-gray-500">
-                  No spam. Real conversations only.
-                </p>
+            <p className="text-xs text-gray-500">
+              No spam. Real conversations only.
+            </p>
             <div className="flex gap-4 pt-2 text-sm text-gray-400">
               <Link className="hover:text-white" href="https://x.com/workdistro">
                 X
@@ -569,7 +739,6 @@ export default function Home() {
               >
                 TikTok
               </Link>
-
             </div>
           </div>
         </div>
@@ -578,13 +747,13 @@ export default function Home() {
           © {new Date().getFullYear()} Workdistro. All rights reserved.
         </p>
       </footer>
+
       <Alert
         show={alert.show}
         message={alert.message}
         type={alert.type}
         onClose={() => setAlert((prev) => ({ ...prev, show: false }))}
       />
-
     </main>
   );
 }
