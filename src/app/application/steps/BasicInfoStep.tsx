@@ -154,6 +154,62 @@ export default function BasicInfoStep({ data, setData }: Props) {
           }
         />
       </div>
+
+      {/* Profile photo */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Profile photo (upload) *
+        </label>
+        <input
+          type="file"
+          accept="image/*"
+          onChange={async (e) => {
+            const file = e.target.files?.[0]
+            if (!file) return
+            const reader = new FileReader()
+            reader.onload = () => {
+              const result = reader.result
+              if (typeof result === "string") {
+                setData((prev) => ({
+                  ...prev,
+                  avatarUrl: result,
+                }))
+              }
+            }
+            reader.readAsDataURL(file)
+          }}
+          className="w-full text-sm text-gray-700 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-emerald-500 file:text-white hover:file:bg-emerald-600"
+        />
+        {data.avatarUrl && (
+          <div className="mt-2 flex items-center gap-2">
+            <div className="h-12 w-12 overflow-hidden rounded-full border border-gray-300">
+              <img src={data.avatarUrl} alt="Uploaded preview" className="h-full w-full object-cover" />
+            </div>
+            <p className="text-xs text-gray-500">Preview uploaded profile photo</p>
+          </div>
+        )}
+        <p className="mt-1 text-xs text-gray-500">Clients see this when booking you.</p>
+      </div>
+
+      {/* Short bio */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Short bio (make clients comfortable) *
+        </label>
+        <textarea
+          rows={3}
+          className={inputClass}
+          placeholder="Good with details and punctual, I give 100% to every task."
+          value={data.shortBio ?? ""}
+          onChange={(e) =>
+            setData((prev) => ({
+              ...prev,
+              shortBio: e.target.value,
+            }))
+          }
+        />
+        <p className="mt-1 text-xs text-gray-500">At least 20 characters for trust.</p>
+      </div>
     </div>
   )
 }

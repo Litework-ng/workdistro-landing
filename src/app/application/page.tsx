@@ -19,7 +19,7 @@ const STEPS = [
     id: "basic-info",
     component: BasicInfoStep,
     isValid: (data: ApplicationData) =>
-      !!data.fullName && !!data.phone && !!data.city,
+      !!data.fullName && !!data.phone && !!data.city && !!data.avatarUrl && (data.shortBio?.trim().length ?? 0) >= 20,
   },
   {
   id: "services",
@@ -88,13 +88,20 @@ const STEPS = [
 ]
 
 async function submitApplication(data: ApplicationData) {
-  const res = await fetch("/.netlify/functions/submitApplication", {
+  const res = await fetch("/api/submitApplication", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
   })
 
-  const result = await res.json()
+  const text = await res.text()
+  let result: any
+  try {
+    result = JSON.parse(text)
+  } catch {
+    console.error("submitApplication returned non-JSON response:", text)
+    throw new Error(`Submission failed (status ${res.status}): ${text.slice(0, 200)}`)
+  }
 
   if (!res.ok) {
     throw new Error(result?.error ?? "Submission failed")

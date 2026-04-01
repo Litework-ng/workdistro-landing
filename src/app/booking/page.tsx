@@ -13,6 +13,7 @@ import ScheduleStep from "./steps/ScheduleStep"
 import ContactStep from "./steps/ContactStep"
 import ReviewStep from "./steps/ReviewStep"
 import BookingSuccess from "../components/BookingSuccess"
+import { useSearchParams } from "next/navigation"
 
 const STEPS = [
   {
@@ -43,12 +44,11 @@ const STEPS = [
       !!data.grocery?.list && !!data.grocery?.budget,
   },
   {
-  id: "schedule",
-  component: ScheduleStep,
-  isValid: (data: BookingData) =>
-    !!data.schedule?.date && !!data.schedule?.time,
-},
-
+    id: "schedule",
+    component: ScheduleStep,
+    isValid: (data: BookingData) =>
+      !!data.schedule?.date && !!data.schedule?.time,
+  },
   {
     id: "contact",
     component: ContactStep,
@@ -103,39 +103,48 @@ function estimatePrice(data: BookingData): number | null {
   }
 }
 
-async function submitBooking(data: BookingData, meta?: { estimatedPrice?: number | null }) {
-  const res = await fetch("/.netlify/functions/submitBooking", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      ...data,
-      estimatedPrice: meta?.estimatedPrice ?? null,
-    }),
-  })
-
-  const json = await res.json()
-
-  if (!res.ok) {
-    throw new Error(json?.error || "Booking failed")
-  }
-}
-
-
 export default function BookingPage() {
+  const searchParams = useSearchParams()
+  const workerId = searchParams.get("workerId") // ✅ from URL
+
   const [data, setData] = useState<BookingData>({
     service: null,
   })
 
+  // ✅ FIXED: workerId is now in correct scope
+  async function submitBooking(
+    data: BookingData,
+    meta?: { estimatedPrice?: number | null }
+  ) {
+    const res = await fetch("/api/submitBooking", { 
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        ...data,
+
+        // ✅ THIS is the key fix
+        workerId,
+
+        estimatedPrice: meta?.estimatedPrice ?? null,
+      }),
+    })
+
+    const json = await res.json()
+
+    if (!res.ok) {
+      throw new Error(json?.error || "Booking failed")
+    }
+  }
+
   return (
     <FormShell
-  steps={STEPS}
-  data={data}
-  setData={setData}
-  WelcomeComponent={WelcomeStep}
-  SuccessComponent={BookingSuccess}
-  onSubmit={submitBooking}
-  estimatePrice={estimatePrice}
-/>
-
+      steps={STEPS}
+      data={data}
+      setData={setData}
+      WelcomeComponent={WelcomeStep}
+      SuccessComponent={BookingSuccess}
+      onSubmit={submitBooking} // ✅ clean now
+      estimatePrice={estimatePrice}
+    />
   )
 }

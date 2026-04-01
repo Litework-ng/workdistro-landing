@@ -344,7 +344,7 @@ export default function Home() {
               Ready to get started?
             </h2>
             <p className="text-gray-400 max-w-md mx-auto">
-              Whether you need something done or want to offer your skills — we've got you covered.
+              Whether you need something done or want to offer your skills — we&apos;ve got you covered.
             </p>
           </div>
 

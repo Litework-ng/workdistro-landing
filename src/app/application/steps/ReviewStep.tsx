@@ -21,12 +21,23 @@ export default function ApplicationReviewStep({
 
       {/* Basic info */}
       <ReviewSection title="Personal details">
+        {data.avatarUrl && (
+          <div className="flex items-center gap-2">
+            <div className="h-10 w-10 overflow-hidden rounded-full border border-slate-300">
+              <img src={data.avatarUrl} alt="Avatar preview" className="h-full w-full object-cover" />
+            </div>
+            <p className="text-sm text-slate-100">Profile photo added</p>
+          </div>
+        )}
         <p><strong>Name:</strong> {data.fullName}</p>
         <p><strong>Phone:</strong> {data.phone}</p>
         {data.email && <p><strong>Email:</strong> {data.email}</p>}
         <p><strong>City:</strong> {data.city}</p>
         {data.age && <p><strong>Age range:</strong> {data.age}</p>}
         {data.gender && <p><strong>Gender:</strong> {data.gender}</p>}
+        {data.shortBio && (
+          <p className="mt-1 text-sm text-gray-700"><strong>Short bio:</strong> {data.shortBio}</p>
+        )}
       </ReviewSection>
 
       {/* Services */}

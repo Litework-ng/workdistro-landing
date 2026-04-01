@@ -19,6 +19,8 @@ export type ApplicationData = {
   age?: "18-24" | "25-34" | "35-44" | "45-54" | "55+"
   gender?: "Male" | "Female" | "Prefer not to say"
   city?: string
+  avatarUrl?: string
+  shortBio?: string
 
   // Services
   services?: ServiceType[]
