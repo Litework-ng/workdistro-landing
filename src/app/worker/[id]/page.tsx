@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { supabase } from "@/lib/supabaseClient";
@@ -19,13 +19,7 @@ type WorkerData = {
   experience_description?: string;
 };
 
-type Review = {
-  id: number;
-  rating?: number;
-  title?: string;
-  body?: string;
-  created_at?: string;
-};
+
 
 async function getWorkerProfile(workerId: string) {
 
@@ -157,41 +151,7 @@ export default async function WorkerProfilePage({
 
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap');
-
-        .font-display { font-family: 'Syne', sans-serif; }
-        .font-body { font-family: 'DM Sans', sans-serif; }
-
-        .grain::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-          pointer-events: none;
-          z-index: 0;
-          opacity: 0.5;
-        }
-
-        .glow-emerald {
-          box-shadow: 0 0 60px -10px rgba(52, 211, 153, 0.15);
-        }
-
-        .review-card:hover {
-          border-color: rgba(52, 211, 153, 0.3);
-          background: rgba(52, 211, 153, 0.03);
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(16px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeUp { animation: fadeUp 0.6s ease forwards; }
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-        .delay-4 { animation-delay: 0.4s; opacity: 0; }
-      `}</style>
+      
 
       <main className="grain font-body min-h-screen bg-[#080C14] text-slate-100 relative">
 

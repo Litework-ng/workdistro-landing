@@ -192,17 +192,7 @@ export default function ReviewPage(){
   if (submitState === "success") {
     return (
       <>
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap');
-          .font-display { font-family: 'Syne', sans-serif; }
-          .font-body { font-family: 'DM Sans', sans-serif; }
-          @keyframes popIn {
-            0% { transform: scale(0.8); opacity: 0; }
-            70% { transform: scale(1.05); }
-            100% { transform: scale(1); opacity: 1; }
-          }
-          .animate-pop { animation: popIn 0.5s ease forwards; }
-        `}</style>
+        
         <main className="font-body min-h-screen bg-[#080C14] flex items-center justify-center px-4">
           <div className="max-w-md w-full text-center space-y-5">
             <div className="animate-pop w-20 h-20 rounded-3xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center mx-auto">
@@ -240,36 +230,7 @@ export default function ReviewPage(){
   // ── Main form ─────────────────────────────────────────────
   return (
     <>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@300;400;500&display=swap');
-        .font-display { font-family: 'Syne', sans-serif; }
-        .font-body { font-family: 'DM Sans', sans-serif; }
-
-        .grain::before {
-          content: '';
-          position: fixed;
-          inset: 0;
-          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-          pointer-events: none;
-          z-index: 0;
-          opacity: 0.5;
-        }
-
-        @keyframes fadeUp {
-          from { opacity: 0; transform: translateY(12px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-fadeUp { animation: fadeUp 0.5s ease forwards; }
-        .delay-1 { animation-delay: 0.1s; opacity: 0; }
-        .delay-2 { animation-delay: 0.2s; opacity: 0; }
-        .delay-3 { animation-delay: 0.3s; opacity: 0; }
-
-        textarea:focus, textarea:focus-visible {
-          outline: none;
-          border-color: rgba(52, 211, 153, 0.4);
-          box-shadow: 0 0 0 3px rgba(52, 211, 153, 0.08);
-        }
-      `}</style>
+      
 
       <main className="grain font-body min-h-screen bg-[#080C14] text-slate-100 relative">
 
