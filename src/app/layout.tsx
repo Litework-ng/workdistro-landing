@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Manrope } from "next/font/google";
+import PostHog from "../components/GoogleAnalytics";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -19,6 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} font-sans bg-slate-950 text-gray-200`}>
+        <PostHog />
         {children}
       </body>
     </html>

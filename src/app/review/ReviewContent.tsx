@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
+import { trackEvent } from "../../lib/analytics";
 
 type BookingInfo = {
   customerName: string;
@@ -145,7 +146,7 @@ export default function ReviewPage(){
       setSubmitState("error");
     } else {
       setSubmitState("success");
-      
+      trackEvent("review_submitted");
     }
   } catch {
     setErrorMessage("Network error. Please try again.");

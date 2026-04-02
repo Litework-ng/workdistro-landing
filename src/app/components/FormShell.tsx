@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import Progress from "./Progress"
 import NavButtons from "./NavButtons"
+import { trackEvent } from "../../lib/analytics"
 
 type Step<T> = {
   id: string
@@ -22,6 +23,7 @@ type Props<T> = {
   SuccessComponent: React.ComponentType<{ data: T }>
   onSubmit: (data: T, meta?: { estimatedPrice?: number | null }) => Promise<void>
   estimatePrice?: (data: T) => number | null
+  conversionEvent?: string
 }
 
 export default function FormShell<T>({
@@ -32,6 +34,7 @@ export default function FormShell<T>({
   SuccessComponent,
   onSubmit,
   estimatePrice,
+  conversionEvent,
 }: Props<T>) {
   const [index, setIndex] = useState(-1)
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -61,6 +64,9 @@ export default function FormShell<T>({
     try {
       await onSubmit(data, { estimatedPrice })
       setSubmitted(true)
+      if (conversionEvent) {
+        trackEvent(conversionEvent)
+      }
     } catch (err: any) {
       console.error(err)
       setErrorMessage(

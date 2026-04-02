@@ -1,12 +1,18 @@
 "use client"
 
 import Image from "next/image"
+import { trackEvent } from "../../../lib/analytics"
 
 type Props = {
   onStart: () => void
 }
 
 export default function WelcomeStep({ onStart }: Props) {
+  const handleStart = () => {
+    trackEvent("booking_started")
+    onStart()
+  }
+
   return (
     <>
       <style>{`
@@ -29,11 +35,11 @@ export default function WelcomeStep({ onStart }: Props) {
         .wlc-overlay {
           position: absolute;
           inset: 0;
-          background: linear-gradient(
+         background: linear-gradient(
             160deg,
-            rgba(8, 6, 4, 0.82) 0%,
-            rgba(12, 9, 6, 0.75) 50%,
-            rgba(8, 6, 4, 0.88) 100%
+            rgba(8, 10, 18, 0.82) 0%,
+            rgba(10, 13, 22, 0.75) 50%,
+            rgba(8, 10, 18, 0.88) 100%
           );
           z-index: 1;
         }
@@ -52,7 +58,7 @@ export default function WelcomeStep({ onStart }: Props) {
         .wlc-card {
           width: 100%;
           max-width: 380px;
-          background: rgba(20, 17, 14, 0.85);
+         background: rgba(18, 22, 35, 0.88)
           backdrop-filter: blur(20px);
           -webkit-backdrop-filter: blur(20px);
           border: 1px solid rgba(255, 255, 255, 0.08);
@@ -102,12 +108,12 @@ export default function WelcomeStep({ onStart }: Props) {
           font-size: 14px;
           font-weight: 400;
           line-height: 1.75;
-          color: #666;
+          color: #ccc;
           margin-bottom: 32px;
         }
 
         .wlc-body strong {
-          color: #999;
+          color: #fff;
           font-weight: 500;
         }
 
@@ -142,7 +148,7 @@ export default function WelcomeStep({ onStart }: Props) {
         .wlc-service-label {
           font-size: 13px;
           font-weight: 500;
-          color: #777;
+          color: #ddd;
         }
 
         /* CTA — cream on dark, premium */
@@ -243,7 +249,7 @@ export default function WelcomeStep({ onStart }: Props) {
               ))}
             </div>
 
-            <button className="wlc-btn" onClick={onStart}>
+            <button className="wlc-btn" onClick={handleStart}>
               Book a Service
             </button>
 

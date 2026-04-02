@@ -145,6 +145,7 @@ export default function BookingPage() {
       SuccessComponent={BookingSuccess}
       onSubmit={submitBooking} // ✅ clean now
       estimatePrice={estimatePrice}
+      conversionEvent="booking_submitted"
     />
   )
 }

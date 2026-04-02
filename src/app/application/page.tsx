@@ -120,6 +120,7 @@ export default function ApplicationPage() {
   WelcomeComponent={WelcomeStep}
   SuccessComponent={ApplicationSuccess}
   onSubmit={submitApplication}
+  conversionEvent="application_submitted"
 />
   )
 }
