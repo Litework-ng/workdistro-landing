@@ -2,15 +2,6 @@
 
 import { useEffect } from 'react'
 
-declare global {
-  interface Window {
-    posthog?: {
-      capture?: (eventName: string, properties?: Record<string, unknown>) => void
-      identify?: (id: string) => void
-    }
-  }
-}
-
 export default function PostHog() {
   useEffect(() => {
     const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
