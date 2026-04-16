@@ -455,7 +455,6 @@ export default function PrivacyTermsPage() {
         </div>
       </footer>
 
-      <Alert show={alert.show} message={alert.message} type={alert.type} onClose={() => setAlert((prev) => ({ ...prev, show: false }))} />
     </main>
   );
 }
