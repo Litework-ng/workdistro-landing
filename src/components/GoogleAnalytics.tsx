@@ -1,25 +1,61 @@
-import Script from 'next/script'
+'use client'
+
+import { useEffect } from 'react'
+
+declare global {
+  interface Window {
+    posthog?: {
+      capture?: (eventName: string, properties?: Record<string, unknown>) => void
+      identify?: (id: string) => void
+    }
+  }
+}
 
 export default function PostHog() {
-  const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
-  const apiHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://app.posthog.com'
+  useEffect(() => {
+    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
+    const apiHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com'
 
-  if (!apiKey) {
-    console.warn('PostHog key missing (NEXT_PUBLIC_POSTHOG_KEY)')
-    return null
-  }
+    if (!apiKey) {
+      console.warn('PostHog: missing NEXT_PUBLIC_POSTHOG_KEY')
+      return
+    }
 
-  return (
-    <>
-      <Script src={`${apiHost}/static/array.js`} strategy="afterInteractive" />
-      <Script id="posthog-init" strategy="afterInteractive">
-        {`
-          window.posthog = window.posthog || [];
-          window.posthog['capture'] = window.posthog['capture'] || function() { (window.posthog.q = window.posthog.q || []).push(['capture'].concat(Array.prototype.slice.call(arguments, 0))); };
-          window.posthog['identify'] = window.posthog['identify'] || function() { (window.posthog.q = window.posthog.q || []).push(['identify'].concat(Array.prototype.slice.call(arguments, 0))); };
-          window.posthog.init('${apiKey}', { api_host: '${apiHost}' });
-        `}
-      </Script>
-    </>
-  )
+    // Initialize posthog as a queue if not already done
+    if (!window.posthog) {
+      window.posthog = []
+    }
+
+    // Load PostHog script dynamically
+    const script = document.createElement('script')
+    script.src = `${apiHost}/static/recorders.js`
+    script.async = true
+    script.onload = () => {
+      // Once loaded, initialize
+      if (window.posthog && Array.isArray(window.posthog)) {
+        ;(window.posthog as any).push([
+          'init',
+          apiKey,
+          {
+            api_host: apiHost,
+            autocapture: true,
+            session_recording: { sample_rate: 0 },
+          },
+        ])
+      }
+    }
+    script.onerror = () => {
+      console.warn('PostHog: failed to load recorder script')
+    }
+    document.head.appendChild(script)
+
+    return () => {
+      // Cleanup
+      if (document.head.contains(script)) {
+        document.head.removeChild(script)
+      }
+    }
+  }, [])
+
+  return null
 }
