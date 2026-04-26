@@ -236,32 +236,34 @@ export default function PrivacyTermsPage() {
 
       {/* ── Page Hero ── */}
       <section className="relative bg-[#141941] overflow-hidden">
-        {/* PATTERN IMAGE – exactly as in the design (green wave graphic) */}
-        <Image
-          src="/images/pattern.png"  
-          alt=""
-          fill
-          priority
-          className="absolute top-0 right-0 h-full w-auto object-contain object-right-top pointer-events-none z-0"
-          style={{ opacity: 0.95 }}
-        />
+        <div className="max-w-6xl mx-auto md:px-5  flex flex-col md:flex-row md:items-center">
+          <div className="relative z-10">
+            <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition mb-6">
+              <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
+                <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              Back
+            </Link>
 
-        <div className="max-w-6xl mx-auto px-5 py-12 md:py-16 relative z-10">
-          <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition mb-6">
-            <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
-              <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-            Back
-          </Link>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
-            Privacy &nbsp;
-            <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">Terms</span>
-          </h1>
-          <p className="text-gray-400 text-sm max-w-md leading-relaxed mb-3">
-            Everything you need to know about how Workdistro works and how your data is handled.
-          </p>
-          <p className="text-xs text-gray-500">Last updated: April 2026</p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
+              Privacy &nbsp;
+              <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">Terms</span>
+            </h1>
+            <p className="text-gray-400 text-sm max-w-md leading-relaxed mb-3">
+              Everything you need to know about how Workdistro works and how your data is handled.
+            </p>
+            <p className="text-xs text-gray-500">Last updated: April 2026</p>
+          </div>
+          <div className="relative mt-8 md:mt-0 md:flex-1 -mx-5 md:mx-0">
+            <Image
+              src="/images/pattern.png"
+              alt=""
+              width={400}
+              height={300}
+              className="w-full h-auto object-contain md:h-full md:object-right-top"
+              priority
+            />
+          </div>
         </div>
       </section>
 

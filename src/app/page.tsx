@@ -6,7 +6,11 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import Alert from "@/app/Alert";
+import RequirementsModal from "@/app/components/RequirementsModal";
 
+/* ─────────────────────────────────────────────
+   DATA
+───────────────────────────────────────────── */
 const testimonials = [
   {
     quote: "Workdistro made it easy to book help for my home. The pro arrived on time and the whole process was smooth.",
@@ -46,49 +50,19 @@ const steps = [
 ];
 
 const faqs = [
-  {
-    question: "What does Workdistro actually do?",
-    answer:
-      "We handle a lot of what needs to get done — from matching to follow-up. Verified professionals. Fixed pricing. No hassle.",
-  },
-  {
-    question: "How do I request a service?",
-    answer:
-      "Simply send your list through the platform. Include what you need — cleaning, laundry, groceries, or other home services — and we'll take care of the rest.",
-  },
-  {
-    question: "Do I choose the professional myself?",
-    answer:
-      "No. We match the right professional to your task. Every professional is verified, rated, and accountable.",
-  },
-  {
-    question: "How is pricing determined?",
-    answer:
-      "Pricing is fixed based on the service. No negotiation at your door, no surprises.",
-  },
-  {
-    question: "What if something goes wrong?",
-    answer:
-      "We step in. Workdistro handles issues and ensures things are resolved promptly.",
-  },
-  {
-    question: "Are the professionals verified?",
-    answer:
-      "Yes. Every professional goes through a verification process and builds a track record through ratings and completed jobs.",
-  },
-  {
-    question: "Can I request recurring services?",
-    answer:
-      "Yes. You can set up recurring tasks and we'll manage consistency and quality.",
-  },
-  {
-    question: "How do professionals get paid?",
-    answer:
-      "Payments are handled through the platform and processed after successful job completion.",
-  },
+  { question: "What does Workdistro actually do?", answer: "We handle a lot of what needs to get done — from matching to follow-up. Verified professionals. Fixed pricing. No hassle." },
+  { question: "How do I request a service?", answer: "Simply send your list through the platform. Include what you need — cleaning, laundry, groceries, or other home services — and we'll take care of the rest." },
+  { question: "Do I choose the professional myself?", answer: "No. We match the right professional to your task. Every professional is verified, rated, and accountable." },
+  { question: "How is pricing determined?", answer: "Pricing is fixed based on the service. No negotiation at your door, no surprises." },
+  { question: "What if something goes wrong?", answer: "We step in. Workdistro handles issues and ensures things are resolved promptly." },
+  { question: "Are the professionals verified?", answer: "Yes. Every professional goes through a verification process and builds a track record through ratings and completed jobs." },
+  { question: "Can I request recurring services?", answer: "Yes. You can set up recurring tasks and we'll manage consistency and quality." },
+  { question: "How do professionals get paid?", answer: "Payments are handled through the platform and processed after successful job completion." },
 ];
 
-/* ── Social icons ── */
+/* ─────────────────────────────────────────────
+   ICONS
+───────────────────────────────────────────── */
 function IconInstagram() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-[18px] h-[18px]" aria-hidden="true">
@@ -101,29 +75,18 @@ function IconInstagram() {
 function IconX() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-[18px] h-[18px]" aria-hidden="true">
-      <path
-        d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.0 2.25H8.08l4.253 5.622 5.911-5.622Z"
-        fill="currentColor"
-      />
+      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.737-8.835L2.0 2.25H8.08l4.253 5.622 5.911-5.622Z" fill="currentColor" />
     </svg>
   );
 }
 function IconWhatsApp() {
   return (
     <svg viewBox="0 0 24 24" fill="none" className="w-[18px] h-[18px]" aria-hidden="true">
-      <path
-        d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.25 22l4.979-1.374A9.953 9.953 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Z"
-        stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"
-      />
-      <path
-        d="M9 9c0-.5.167-.9.5-1.2.334-.3.667-.3.834-.3h.333c.167 0 .334.1.417.3l.666 1.6c.084.2.084.4 0 .6l-.416.667c-.084.2-.084.366 0 .5.333.666.833 1.166 1.5 1.5.133.066.3.066.433 0l.667-.417c.2-.083.4-.083.6 0l1.6.667c.2.083.3.25.3.416v.334c0 .166 0 .5-.3.8-.3.3-.667.533-1.167.533C9.833 15 8.5 13.667 8.5 12c0-.5.083-.95.25-1.366L9 9Z"
-        stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"
-      />
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2.25 22l4.979-1.374A9.953 9.953 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Z" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+      <path d="M9 9c0-.5.167-.9.5-1.2.334-.3.667-.3.834-.3h.333c.167 0 .334.1.417.3l.666 1.6c.084.2.084.4 0 .6l-.416.667c-.084.2-.084.366 0 .5.333.666.833 1.166 1.5 1.5.133.066.3.066.433 0l.667-.417c.2-.083.4-.083.6 0l1.6.667c.2.083.3.25.3.416v.334c0 .166 0 .5-.3.8-.3.3-.667.533-1.167.533C9.833 15 8.5 13.667 8.5 12c0-.5.083-.95.25-1.366L9 9Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
-
-/* ── Pro feature pill icons ── */
 function IconVerified() {
   return (
     <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5 shrink-0" aria-hidden="true">
@@ -158,45 +121,16 @@ function IconProtection() {
   );
 }
 
-/* ── Profile card used in the Pro hero ── */
-function ProProfileCard({ name, role, image, className = "" }: { name: string; role: string; image: string; className?: string }) {
-  return (
-    <div className={`bg-white rounded-2xl shadow-xl overflow-hidden w-[220px] sm:w-[240px] ${className}`}>
-      <div className="relative w-full h-[200px] sm:h-[220px] bg-gray-100">
-        <Image src={image} alt={name} fill className="object-cover" />
-      </div>
-      <div className="px-4 py-3">
-        <p className="text-sm font-bold text-[#141941] leading-tight">{name}</p>
-        <p className="text-xs text-gray-400 mt-0.5">{role}</p>
-        <span className="inline-flex items-center gap-1 mt-2 px-2.5 py-1 rounded-full bg-[#DCFCE7] text-[#15803D] text-[10px] font-semibold">
-          <svg viewBox="0 0 10 12" className="w-2.5 h-2.5" fill="#15803D" aria-hidden="true">
-            <path d="M5 0L0 3v4c0 2.5 2 4.5 5 5 3-0.5 5-2.5 5-5V3L5 0Z" />
-          </svg>
-          Available to work
-        </span>
-      </div>
-    </div>
-  );
-}
-
-/* ── FAQ accordion item ── */
+/* ─────────────────────────────────────────────
+   FAQ ITEM
+───────────────────────────────────────────── */
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-gray-100 last:border-0">
-      <button
-        onClick={() => setOpen((v) => !v)}
-        aria-expanded={open}
-        className="w-full flex items-start justify-between gap-4 py-4 text-left group"
-      >
-        <span className="text-sm font-semibold text-[#141941] leading-snug group-hover:text-[#31DE9E] transition">
-          {question}
-        </span>
-        <span
-          className={`mt-0.5 shrink-0 w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center transition-transform duration-300 ${
-            open ? "rotate-180 border-[#31DE9E]" : ""
-          }`}
-        >
+      <button onClick={() => setOpen((v) => !v)} aria-expanded={open} className="w-full flex items-start justify-between gap-4 py-4 text-left group">
+        <span className="text-sm font-semibold text-[#141941] leading-snug group-hover:text-[#31DE9E] transition">{question}</span>
+        <span className={`mt-0.5 shrink-0 w-5 h-5 rounded-full border border-gray-300 flex items-center justify-center transition-transform duration-300 ${open ? "rotate-180 border-[#31DE9E]" : ""}`}>
           <svg viewBox="0 0 10 6" className={`w-2.5 h-2.5 transition-colors ${open ? "text-[#31DE9E]" : "text-gray-400"}`} fill="none">
             <path d="M1 1l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
@@ -204,14 +138,7 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
       </button>
       <AnimatePresence initial={false}>
         {open && (
-          <motion.div
-            key="answer"
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.25, ease: "easeOut" }}
-            className="overflow-hidden"
-          >
+          <motion.div key="answer" initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.25, ease: "easeOut" }} className="overflow-hidden">
             <p className="pb-4 text-sm text-[#4B5563] leading-relaxed pr-8">{answer}</p>
           </motion.div>
         )}
@@ -220,10 +147,14 @@ function FAQItem({ question, answer }: { question: string; answer: string }) {
   );
 }
 
+/* ─────────────────────────────────────────────
+   PAGE — single default export
+───────────────────────────────────────────── */
 export default function Home() {
   const [activeTab, setActiveTab] = useState<"clients" | "professionals">("clients");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [requirementsModalOpen, setRequirementsModalOpen] = useState(false);
   const [alert, setAlert] = useState<{
     show: boolean;
     message: string;
@@ -236,34 +167,24 @@ export default function Home() {
     return () => window.removeEventListener("hashchange", onHash);
   }, []);
 
-  const prevTestimonial = () =>
-    setTestimonialIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
-  const nextTestimonial = () =>
-    setTestimonialIndex((i) => (i + 1) % testimonials.length);
+  const prevTestimonial = () => setTestimonialIndex((i) => (i - 1 + testimonials.length) % testimonials.length);
+  const nextTestimonial = () => setTestimonialIndex((i) => (i + 1) % testimonials.length);
 
   return (
     <main className="bg-white text-[#0D1B2A] overflow-x-hidden">
 
-      {/* ── Navbar ─────────────────────────────────────────────────── */}
+      {/* ── Navbar ── */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
         <div className="max-w-6xl mx-auto flex items-center justify-between px-5 py-3">
           <Link href="/" aria-label="Workdistro Home" className="shrink-0">
             <Image src="/images/logo.png" alt="Workdistro" width={160} height={40} priority className="h-9 w-auto" />
           </Link>
-
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium">
             <Link href="#how-it-works" className="text-[#4B5563] hover:text-[#31DE9E] transition">How it works</Link>
             <Link href="/application" className="text-[#4B5563] hover:text-[#31DE9E] transition">Apply as a pro</Link>
-            <Link href="/booking" className="px-5 py-2.5 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
-              Book a service
-            </Link>
+            <Link href="/booking" className="px-5 py-2.5 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">Book a service</Link>
           </nav>
-
-          <button
-            aria-label="Toggle menu" aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-            className="md:hidden p-2 rounded-lg border border-gray-200"
-          >
+          <button aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((v) => !v)} className="md:hidden p-2 rounded-lg border border-gray-200">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               {menuOpen
                 ? <path d="M6 18L18 6M6 6l12 12" stroke="#0D1B2A" strokeWidth="2" strokeLinecap="round" />
@@ -271,14 +192,9 @@ export default function Home() {
             </svg>
           </button>
         </div>
-
         <AnimatePresence>
           {menuOpen && (
-            <motion.nav
-              initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.22 }}
-              className="md:hidden overflow-hidden border-t border-gray-100"
-            >
+            <motion.nav initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.22 }} className="md:hidden overflow-hidden border-t border-gray-100">
               <div className="px-5 py-4 flex flex-col gap-3 bg-white text-sm font-medium">
                 <Link href="#how-it-works" onClick={() => setMenuOpen(false)} className="py-2 hover:text-[#31DE9E]">How it works</Link>
                 <Link href="/application" onClick={() => setMenuOpen(false)} className="py-2 hover:text-[#31DE9E]">Apply as a pro</Link>
@@ -289,26 +205,15 @@ export default function Home() {
         </AnimatePresence>
       </header>
 
-      {/* ── Hero Section ───────────────────────────────────────────── */}
+      {/* ── Hero ── */}
       <section className="max-w-6xl mx-auto px-5 pt-12 pb-12 md:pt-16 md:pb-20 overflow-hidden">
         <div className="grid md:grid-cols-2 gap-10 items-center">
 
           {/* LEFT */}
           <div>
-            {/* Tab switcher */}
             <div className="inline-flex rounded-full border border-gray-200 p-1 mb-7 bg-[#F7F7F7] text-sm font-medium">
-              <button
-                onClick={() => setActiveTab("clients")}
-                className={`px-4 py-1.5 rounded-full transition ${activeTab === "clients" ? "bg-white shadow text-[#1D1D1D] font-semibold" : "text-[#4B5563] hover:text-[#0D1B2A]"}`}
-              >
-                For Clients
-              </button>
-              <button
-                onClick={() => setActiveTab("professionals")}
-                className={`px-4 py-1.5 rounded-full transition ${activeTab === "professionals" ? "bg-white shadow text-[#1D1D1D] font-semibold" : "text-[#4B5563] hover:text-[#0D1B2A]"}`}
-              >
-                For Professionals
-              </button>
+              <button onClick={() => setActiveTab("clients")} className={`px-4 py-1.5 rounded-full transition ${activeTab === "clients" ? "bg-white shadow text-[#1D1D1D] font-semibold" : "text-[#4B5563] hover:text-[#0D1B2A]"}`}>For Clients</button>
+              <button onClick={() => setActiveTab("professionals")} className={`px-4 py-1.5 rounded-full transition ${activeTab === "professionals" ? "bg-white shadow text-[#1D1D1D] font-semibold" : "text-[#4B5563] hover:text-[#0D1B2A]"}`}>For Professionals</button>
             </div>
 
             <AnimatePresence mode="wait">
@@ -319,16 +224,10 @@ export default function Home() {
                     <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A] font-semibold">handle</span>{" "}
                     the rest.
                   </h1>
-                  <p className="text-[#4B5563] text-base leading-relaxed max-w-md mb-7">
-                    Cleaning, laundry, grocery runs, home services handled start to finish by vetted professionals. No price negotiation. No follow-ups. No drama.
-                  </p>
+                  <p className="text-[#4B5563] text-base leading-relaxed max-w-md mb-7">Cleaning, laundry, grocery runs, home services handled start to finish by vetted professionals. No price negotiation. No follow-ups. No drama.</p>
                   <div className="flex flex-col sm:flex-row gap-3 mb-10">
-                    <Link href="/booking" className="w-full sm:w-auto text-center px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
-                      Book a service
-                    </Link>
-                    <Link href="/application" className="w-full sm:w-auto text-center flex justify-center items-center gap-1.5 px-6 py-3 rounded-full bg-[#F5F5F5] border border-gray-300 text-[#0D1B2A] font-medium hover:border-[#31DE9E] transition text-sm">
-                      Apply as a Professional <span>↗</span>
-                    </Link>
+                    <Link href="/booking" className="w-full sm:w-auto text-center px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">Book a service</Link>
+                    <Link href="/application" className="w-full sm:w-auto text-center flex justify-center items-center gap-1.5 px-6 py-3 rounded-full bg-[#F5F5F5] border border-gray-300 text-[#0D1B2A] font-medium hover:border-[#31DE9E] transition text-sm">Apply as a Professional <span>↗</span></Link>
                   </div>
                 </motion.div>
               ) : (
@@ -338,13 +237,9 @@ export default function Home() {
                     <br className="hidden sm:block" />
                     who{" "}
                     <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">value</span>{" "}
-                    your
-                    <br className="hidden sm:block" />{" "}
-                    expertise
+                    your<br className="hidden sm:block" />{" "}expertise
                   </h1>
-                  <p className="text-[#4B5563] text-base leading-relaxed max-w-md mb-7">
-                    Workdistro helps you turn their work into a real track record. Your profile becomes your CV and you get access to clients.
-                  </p>
+                  <p className="text-[#4B5563] text-base leading-relaxed max-w-md mb-7">Workdistro helps you turn their work into a real track record. Your profile becomes your CV and you get access to clients.</p>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-8 max-w-md">
                     {[
                       { icon: <IconVerified />, label: "Verified professional profile" },
@@ -352,9 +247,7 @@ export default function Home() {
                       { icon: <IconHistory />, label: "Real job history and ratings" },
                       { icon: <IconProtection />, label: "Protection and dispute handling" },
                     ].map(({ icon, label }) => (
-                      <span key={label} className="flex w-full items-center gap-2 px-3 py-3 rounded-2xl border border-[#E8E8E8] bg-[#F5F5F5] text-xs font-medium text-[#1D1D1D]">
-                        {icon}{label}
-                      </span>
+                      <span key={label} className="flex w-full items-center gap-2 px-3 py-3 rounded-2xl border border-[#E8E8E8] bg-[#F5F5F5] text-xs font-medium text-[#1D1D1D]">{icon}{label}</span>
                     ))}
                   </div>
                   <Link href="/application" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
@@ -364,7 +257,6 @@ export default function Home() {
               )}
             </AnimatePresence>
 
-            {/* Stats — clients only */}
             <AnimatePresence>
               {activeTab === "clients" && (
                 <motion.div key="stats" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.3 }} className="flex gap-8 border-t border-gray-100 pt-7">
@@ -383,14 +275,14 @@ export default function Home() {
           <div className="relative flex justify-center md:justify-end">
             <AnimatePresence mode="wait">
               {activeTab === "clients" && (
-                <motion.div key="client-img" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.4 }} className="relative w-full max-w-[420px]">
+                <motion.div key="client-img" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.4 }} className="relative w-full max-w-[480px]">
                   <div className="relative rounded-2xl overflow-hidden aspect-[4/4.5]">
                     <Image src="/images/heroImage.png" alt="Professional at work" fill className="object-cover" />
                   </div>
                 </motion.div>
               )}
               {activeTab === "professionals" && (
-                <motion.div key="pro-img" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.4 }} className="relative w-full max-w-[420px]">
+                <motion.div key="pro-img" initial={{ opacity: 0, scale: 0.97 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.97 }} transition={{ duration: 0.4 }} className="relative w-full max-w-[480px]">
                   <div className="relative rounded-2xl overflow-hidden aspect-[4/4.5]">
                     <Image src="/images/heroImage.png" alt="Professional at work" fill className="object-cover" />
                   </div>
@@ -401,7 +293,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Dark Banner ────────────────────────────────────────────── */}
+      {/* ── Dark Banner ── */}
       <section className="relative w-full overflow-hidden py-0">
         <div className="relative w-full h-[220px] sm:h-[230px] md:h-[360px]">
           <Image src="/images/mobileSectionAdditional.png" alt="Workdistro banner" fill className="object-contain sm:hidden" priority sizes="100vw" />
@@ -409,7 +301,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── How It Works ───────────────────────────────────────────── */}
+      {/* ── How It Works ── */}
       <section id="how-it-works" className="py-12 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-5">
           <div className="text-center mb-10">
@@ -438,21 +330,20 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Services Section ───────────────────────────────────────── */}
-      <section className="relative w-full overflow-hidden py-0">
+      {/* ── Services ── */}
+      <section className="relative w-full overflow-hidden py-0 bg-[#F5F5F5]">
         <div className="relative w-full h-[680px] md:h-[520px] lg:h-[620px]">
           <Image src="/images/mobileServices.png" alt="Workdistro services" fill className="object-cover sm:hidden" priority sizes="100vw" />
           <Image src="/images/services.png" alt="Workdistro services" fill className="object-contain hidden sm:block" priority sizes="100vw" />
         </div>
       </section>
 
-      {/* ── Testimonials ───────────────────────────────────────────── */}
+      {/* ── Testimonials ── */}
       <section className="py-16 md:py-20 bg-white">
         <div className="max-w-6xl mx-auto px-5">
           <div className="text-center mb-10">
             <h2 className="text-3xl sm:text-4xl font-extrabold text-[#141941] mb-2">
-              Don&apos;t take <br />
-              our{" "}
+              Don&apos;t take <br />our{" "}
               <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">word</span>
               {" "}for it.
             </h2>
@@ -477,35 +368,27 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── FAQ Section ────────────────────────────────────────────── */}
+      {/* ── FAQ ── */}
       <section id="faq" className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
-
-            {/* Left — heading */}
             <div className="md:sticky md:top-28">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#141941] leading-tight">
                 We&apos;ve got{" "}
-                <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">
-                  answers
-                </span>
-                <br />
-                to your questions
+                <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">answers</span>
+                <br />to your questions
               </h2>
             </div>
-
-            {/* Right — accordion */}
             <div className="divide-y divide-gray-100">
               {faqs.map((faq) => (
                 <FAQItem key={faq.question} question={faq.question} answer={faq.answer} />
               ))}
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* ── CTA Banner ─────────────────────────────────────────────── */}
+           {/* ── CTA Banner ─────────────────────────────────────────────── */}
       <section className="max-w-6xl mx-auto px-5 pb-16 md:pb-20">
         <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 min-h-[300px]">
           <div className="order-2 md:order-1 bg-[#141941] px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 flex flex-col justify-center relative overflow-hidden">
@@ -528,23 +411,22 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Footer ─────────────────────────────────────────────────── */}
+
+
+      {/* ── Footer ── */}
       <footer className="border-t border-gray-100 bg-[#F5F5F5] pt-12 pb-8">
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-1">
               <p className="text-sm font-bold text-[#1D1D1D] mb-2">Your home is waiting.</p>
-              <p className="text-sm sm:text-xs text-[#1D1D1D] leading-relaxed mb-5">
-                All you need to do is send us the list and we&apos;ll handle the rest.
-              </p>
+              <p className="text-sm sm:text-xs text-[#1D1D1D] leading-relaxed mb-5">All you need to do is send us the list and we&apos;ll handle the rest.</p>
               <div className="flex gap-3">
                 {[
                   { href: "https://www.instagram.com/workdistro", label: "Instagram", icon: <IconInstagram /> },
                   { href: "https://x.com/workdistro", label: "X", icon: <IconX /> },
                   { href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM", label: "WhatsApp", icon: <IconWhatsApp /> },
                 ].map((s) => (
-                  <Link key={s.label} href={s.href} aria-label={s.label} target="_blank"
-                    className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-[#1D1D1D] hover:border-[#31DE9E] hover:text-[#31DE9E] transition">
+                  <Link key={s.label} href={s.href} aria-label={s.label} target="_blank" className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-[#1D1D1D] hover:border-[#31DE9E] hover:text-[#31DE9E] transition">
                     {s.icon}
                   </Link>
                 ))}
@@ -554,30 +436,32 @@ export default function Home() {
             <div>
               <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Company</p>
               <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                {["About", "How It Works", "Services", "Contact"].map((l) => (
-                  <li key={l}><Link href="#" className="hover:text-[#31DE9E] transition">{l}</Link></li>
-                ))}
+                <li><Link href="/" className="hover:text-[#31DE9E] transition">About</Link></li>
+                <li><Link href="#how-it-works" className="hover:text-[#31DE9E] transition">How It Works</Link></li>
               </ul>
             </div>
 
             <div>
               <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Useful links</p>
               <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                {[
-                  { label: "Apply as a Professional", href: "/application" },
-                  { label: "Professional Requirements", href: "#" },
-                  { label: "Book a Service", href: "/booking" },
-                  { label: "Join our community", href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM" },
-                ].map((l) => (
-                  <li key={l.label}><Link href={l.href} className="hover:text-[#31DE9E] transition">{l.label}</Link></li>
-                ))}
+                <li><Link href="/application" className="hover:text-[#31DE9E] transition">Apply as a Professional</Link></li>
+                <li>
+                  <button
+                    onClick={() => setRequirementsModalOpen(true)}
+                    className="hover:text-[#31DE9E] transition text-left text-xs"
+                  >
+                    Professional Requirements
+                  </button>
+                </li>
+                <li><Link href="/booking" className="hover:text-[#31DE9E] transition">Book a Service</Link></li>
+                <li><Link href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM" className="hover:text-[#31DE9E] transition">Join our community</Link></li>
               </ul>
             </div>
 
             <div>
               <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Support</p>
               <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                <li><Link href="/privacy" className="hover:text-[#31DE9E] transition">Help Center</Link></li>
+                <li><Link href="https://wa.me/2349012791144" target="_blank" className="hover:text-[#31DE9E] transition">Contact Us</Link></li>
                 <li><Link href="#faq" className="hover:text-[#31DE9E] transition">FAQs</Link></li>
                 <li><Link href="/privacy#terms-of-service" className="hover:text-[#31DE9E] transition">Terms of Service</Link></li>
                 <li><Link href="/privacy#privacy-policy" className="hover:text-[#31DE9E] transition">Privacy Policy</Link></li>
@@ -585,7 +469,6 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Full-width footer logo */}
           <div className="w-full py-6 -mx-5 px-5">
             <div className="relative w-full h-[130px] md:h-[180px]">
               <Image src="/images/footerLogo.png" alt="Workdistro" fill className="object-contain object-left" sizes="100vw" />
@@ -599,7 +482,17 @@ export default function Home() {
         </div>
       </footer>
 
-      <Alert show={alert.show} message={alert.message} type={alert.type} onClose={() => setAlert((prev) => ({ ...prev, show: false }))} />
+      {/* ── Modals ── */}
+      <RequirementsModal
+        open={requirementsModalOpen}
+        onClose={() => setRequirementsModalOpen(false)}
+      />
+      <Alert
+        show={alert.show}
+        message={alert.message}
+        type={alert.type}
+        onClose={() => setAlert((prev) => ({ ...prev, show: false }))}
+      />
     </main>
   );
 }
