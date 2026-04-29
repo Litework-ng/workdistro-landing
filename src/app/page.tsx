@@ -5,8 +5,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Alert from "@/app/Alert";
-import RequirementsModal from "@/app/components/RequirementsModal";
 
 /* ─────────────────────────────────────────────
    DATA
@@ -154,12 +152,6 @@ export default function Home() {
   const [activeTab, setActiveTab] = useState<"clients" | "professionals">("clients");
   const [testimonialIndex, setTestimonialIndex] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [requirementsModalOpen, setRequirementsModalOpen] = useState(false);
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    message: string;
-    type?: "success" | "error" | "info";
-  }>({ show: false, message: "", type: "info" });
 
   useEffect(() => {
     const onHash = () => setMenuOpen(false);
@@ -413,86 +405,6 @@ export default function Home() {
 
 
 
-      {/* ── Footer ── */}
-      <footer className="border-t border-gray-100 bg-[#F5F5F5] pt-12 pb-8">
-        <div className="max-w-6xl mx-auto px-5">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-1">
-              <p className="text-sm font-bold text-[#1D1D1D] mb-2">Your home is waiting.</p>
-              <p className="text-sm sm:text-xs text-[#1D1D1D] leading-relaxed mb-5">All you need to do is send us the list and we&apos;ll handle the rest.</p>
-              <div className="flex gap-3">
-                {[
-                  { href: "https://www.instagram.com/workdistro", label: "Instagram", icon: <IconInstagram /> },
-                  { href: "https://x.com/workdistro", label: "X", icon: <IconX /> },
-                  { href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM", label: "WhatsApp", icon: <IconWhatsApp /> },
-                ].map((s) => (
-                  <Link key={s.label} href={s.href} aria-label={s.label} target="_blank" className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-[#1D1D1D] hover:border-[#31DE9E] hover:text-[#31DE9E] transition">
-                    {s.icon}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Company</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                <li><Link href="/" className="hover:text-[#31DE9E] transition">About</Link></li>
-                <li><Link href="#how-it-works" className="hover:text-[#31DE9E] transition">How It Works</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Useful links</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                <li><Link href="/application" className="hover:text-[#31DE9E] transition">Apply as a Professional</Link></li>
-                <li>
-                  <button
-                    onClick={() => setRequirementsModalOpen(true)}
-                    className="hover:text-[#31DE9E] transition text-left text-xs"
-                  >
-                    Professional Requirements
-                  </button>
-                </li>
-                <li><Link href="/booking" className="hover:text-[#31DE9E] transition">Book a Service</Link></li>
-                <li><Link href="https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM" className="hover:text-[#31DE9E] transition">Join our community</Link></li>
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Support</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                <li><Link href="https://wa.me/2349012791144" target="_blank" className="hover:text-[#31DE9E] transition">Contact Us</Link></li>
-                <li><Link href="#faq" className="hover:text-[#31DE9E] transition">FAQs</Link></li>
-                <li><Link href="/privacy#terms-of-service" className="hover:text-[#31DE9E] transition">Terms of Service</Link></li>
-                <li><Link href="/privacy#privacy-policy" className="hover:text-[#31DE9E] transition">Privacy Policy</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="w-full py-6 -mx-5 px-5">
-            <div className="relative w-full h-[130px] md:h-[180px]">
-              <Image src="/images/footerLogo.png" alt="Workdistro" fill className="object-contain object-left" sizes="100vw" />
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 pt-6 flex md:flex-row items-center justify-between gap-2">
-            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Workdistro.</p>
-            <p className="text-xs text-gray-400">All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
-
-      {/* ── Modals ── */}
-      <RequirementsModal
-        open={requirementsModalOpen}
-        onClose={() => setRequirementsModalOpen(false)}
-      />
-      <Alert
-        show={alert.show}
-        message={alert.message}
-        type={alert.type}
-        onClose={() => setAlert((prev) => ({ ...prev, show: false }))}
-      />
     </main>
   );
 }

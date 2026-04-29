@@ -1,52 +1,42 @@
 'use client'
 
-import { useEffect } from 'react'
+import posthog from 'posthog-js'
+import { PostHogProvider as PHProvider, usePostHog } from 'posthog-js/react'
+import { Suspense, useEffect } from 'react'
+import { usePathname, useSearchParams } from 'next/navigation'
 
-export default function PostHog() {
+if (typeof window !== 'undefined') {
+  posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY!, {
+    api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    capture_pageview: false,
+    capture_pageleave: true,
+  })
+}
+
+function PostHogPageView() {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const posthogClient = usePostHog()
+
   useEffect(() => {
-    const apiKey = process.env.NEXT_PUBLIC_POSTHOG_KEY
-    const apiHost = process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://us.i.posthog.com'
-
-    if (!apiKey) {
-      console.warn('PostHog: missing NEXT_PUBLIC_POSTHOG_KEY')
-      return
+    if (pathname && posthogClient) {
+      let url = window.location.origin + pathname
+      const search = searchParams.toString()
+      if (search) url += `?${search}`
+      posthogClient.capture('$pageview', { $current_url: url })
     }
-
-    // Initialize posthog as a queue if not already done
-    if (!window.posthog) {
-      window.posthog = []
-    }
-
-    // Load PostHog script dynamically
-    const script = document.createElement('script')
-    script.src = `${apiHost}/static/recorders.js`
-    script.async = true
-    script.onload = () => {
-      // Once loaded, initialize
-      if (window.posthog && Array.isArray(window.posthog)) {
-        ;(window.posthog as any).push([
-          'init',
-          apiKey,
-          {
-            api_host: apiHost,
-            autocapture: true,
-            session_recording: { sample_rate: 0 },
-          },
-        ])
-      }
-    }
-    script.onerror = () => {
-      console.warn('PostHog: failed to load recorder script')
-    }
-    document.head.appendChild(script)
-
-    return () => {
-      // Cleanup
-      if (document.head.contains(script)) {
-        document.head.removeChild(script)
-      }
-    }
-  }, [])
+  }, [pathname, searchParams, posthogClient])
 
   return null
+}
+
+export default function PostHogProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <PHProvider client={posthog}>
+      <Suspense fallback={null}>
+        <PostHogPageView />
+      </Suspense>
+      {children}
+    </PHProvider>
+  )
 }

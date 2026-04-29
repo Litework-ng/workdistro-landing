@@ -1,6 +1,8 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react" 
+import { trackEvent } from "../../lib/analytics"   
+
 import FormShell from "../components/FormShell"
 import type { BookingData } from "./types"
 
@@ -103,49 +105,65 @@ function estimatePrice(data: BookingData): number | null {
   }
 }
 
-export default function BookingPage() {
-  const searchParams = useSearchParams()
-  const workerId = searchParams.get("workerId") // ✅ from URL
+export default function BookingPage() {  
+  const searchParams = useSearchParams()  
+  const workerId = searchParams.get("workerId")  
+                  
+  const bookingStartedFired = useRef(false)     // ← prevents double-firing
 
-  const [data, setData] = useState<BookingData>({
-    service: null,
+  const [data, setData] = useState<BookingData>({  
+    service: null,  
   })
 
-  // ✅ FIXED: workerId is now in correct scope
-  async function submitBooking(
-    data: BookingData,
-    meta?: { estimatedPrice?: number | null }
-  ) {
-    const res = await fetch("/api/submitBooking", { 
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ...data,
+  // Fire booking_started once when the user picks a service  
+   useEffect(() => {  
+    if (data.service && !bookingStartedFired.current) {  
+      bookingStartedFired.current = true  
+      trackEvent("booking_started", {  
+        service: data.service,  
+        worker_id: workerId ?? undefined,  
+      })  
+    }  
+  }, [data.service])
 
-        // ✅ THIS is the key fix
-        workerId,
-
-        estimatedPrice: meta?.estimatedPrice ?? null,
-      }),
+  async function submitBooking(  
+    data: BookingData,  
+    meta?: { estimatedPrice?: number | null }  
+  ) {  
+    const res = await fetch("/api/submitBooking", {  
+      method: "POST",  
+      headers: { "Content-Type": "application/json" },  
+      body: JSON.stringify({  
+        ...data,  
+        workerId,  
+        estimatedPrice: meta?.estimatedPrice ?? null,  
+      }),  
     })
 
     const json = await res.json()
 
-    if (!res.ok) {
-      throw new Error(json?.error || "Booking failed")
+    if (!res.ok) {  
+      throw new Error(json?.error || "Booking failed")  
     }
+
+    // Fire booking_completed only on confirmed success  
+    trackEvent("booking_completed", {  
+      service: data.service,  
+      estimated_price: meta?.estimatedPrice ?? null,  
+      worker_id: workerId ?? undefined,  
+    })  
   }
 
-  return (
-    <FormShell
-      steps={STEPS}
-      data={data}
-      setData={setData}
-      WelcomeComponent={WelcomeStep}
-      SuccessComponent={BookingSuccess}
-      onSubmit={submitBooking} // ✅ clean now
-      estimatePrice={estimatePrice}
-      conversionEvent="booking_submitted"
-    />
-  )
-}
+  return (  
+    <FormShell  
+      steps={STEPS}  
+      data={data}  
+      setData={setData}  
+      WelcomeComponent={WelcomeStep}  
+      SuccessComponent={BookingSuccess}  
+      onSubmit={submitBooking}  
+      estimatePrice={estimatePrice}  
+      
+    />  
+  )  
+}  

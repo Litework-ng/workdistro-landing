@@ -1,6 +1,7 @@
-import "./globals.css";
+import './globals.css';
 import { Manrope } from "next/font/google";
-import PostHog from "../components/GoogleAnalytics";
+import PostHogProvider from "../components/GoogleAnalytics";
+import ClientLayout from "./ClientLayout";
 
 const manrope = Manrope({
   subsets: ["latin"],
@@ -9,7 +10,7 @@ const manrope = Manrope({
 
 export const metadata = {
   title: "WorkDistro",
-  description: "Connecting clients and workers seamlessly",
+  description: "Send the list. We handle the rest.",
 };
 
 export default function RootLayout({
@@ -20,8 +21,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} font-sans bg-slate-950 text-gray-200`}>
-        <PostHog />
-        {children}
+        <PostHogProvider>
+          <ClientLayout>{children}</ClientLayout>
+        </PostHogProvider>
       </body>
     </html>
   );

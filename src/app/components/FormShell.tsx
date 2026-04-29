@@ -64,9 +64,11 @@ export default function FormShell<T>({
     try {
       await onSubmit(data, { estimatedPrice })
       setSubmitted(true)
-      if (conversionEvent) {
-        trackEvent(conversionEvent)
-      }
+      if (conversionEvent) {  
+        trackEvent(conversionEvent, {  
+          estimated_price: estimatedPrice ?? undefined,  
+        })  
+      }  
     } catch (err: any) {
       console.error(err)
       setErrorMessage(

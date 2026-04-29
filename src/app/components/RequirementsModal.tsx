@@ -76,7 +76,7 @@ export default function RequirementsModal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.94, y: 16 }}
             transition={{ duration: 0.28, ease: [0.25, 0.46, 0.45, 0.94] }}
-            className="relative w-full max-w-[420px] rounded-3xl overflow-hidden shadow-2xl"
+            className="relative w-full max-w-[420px] max-h-[90vh] rounded-3xl overflow-hidden shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* ── Dark header ── */}
@@ -109,7 +109,7 @@ export default function RequirementsModal({
             </div>
 
             {/* ── White body ── */}
-            <div className="bg-white px-6 pt-7 pb-6">
+            <div className="bg-white px-6 pt-7 pb-6 overflow-y-auto">
               <div className="space-y-7">
                 {requirements.map((section) => (
                   <div key={section.title}>

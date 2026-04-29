@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import Alert from "@/app/Alert";
 
 /* ─────────────────────────────────────────────
    CONTENT
@@ -27,49 +26,21 @@ Workdistro is designed to take the stress out of home services — not introduce
 
 const tosContent = {
   introduction: `Workdistro is a managed home-services platform built to make everyday tasks reliable. By using this platform, you agree to how the service operates — from how requests are handled to how professionals are assigned and how issues are resolved. These terms exist to make sure the experience stays consistent, structured, and fair for everyone involved.`,
-
-  howItWorks: `Workdistro handles the full service process. When a request is made, we take responsibility for matching the right professional, setting the pricing, coordinating delivery, and stepping in if anything goes wrong.
-Pricing is fixed based on the service type. Clients are protected from open profiles or negotiate directly. The system is designed to remove that uncertainty and replace it with a managed, reliable process.
-Using Workdistro means agreeing to this structure — where the platform manages the outcome, not just the connection.`,
-
-  userAccounts: `To use Workdistro, you may be required to create an account and provide accurate information. This includes your name, contact details, and any information needed to deliver services properly.
-You are responsible for maintaining the accuracy of your account and keeping your login details secure. Any activity carried out through your account is considered your responsibility.
-Workdistro reserves the right to suspend or remove accounts that misuse the platform or violate these terms.`,
-
-  serviceRequests: `When submitting a request, you are expected to provide clear and accurate details about the task. This helps us match the right professional and ensure the work is completed correctly.
-You are also responsible for ensuring that the environment is suitable for the service to be delivered. This includes providing access where necessary and communicating any specific requirements in advance.
-Workdistro may decline or adjust requests if the details provided are incomplete or fall outside the scope of supported services.`,
-
-  professionals: `Professionals on Workdistro are verified service providers who operate within a structured system. They are expected to deliver services to a high standard, maintain professionalism, and follow platform guidelines at all times.
-Their performance is tracked through ratings, job history, and accountability measures. This ensures that every professional on the platform is part of a system that prioritises reliability and consistency.`,
-
-  pricing: `Pricing on Workdistro is fixed based on the type of service requested. This removes the need for negotiation and ensures clarity from the start.
-All payments are processed through the platform using secure payment systems. Clients are expected to complete payments as required for services to be delivered.
-Payments to professionals are handled after successful job completion, in line with platform processes.`,
-
-  cancellations: `Plans change, and we plan for that. However, cancellations or changes to a request should be made within the appropriate timeframe.
-Late cancellations may result in charges, depending on how close the request is to the scheduled service time and the resources already allocated.
-Repeated cancellations or misuse of the system may lead to restrictions on your account.`,
-
-  disputes: `If something doesn't go as expected, Workdistro steps in.
-We review the situation based on available information, including communication, job details, and platform records. Our goal is to resolve issues fairly and maintain trust on both sides of the platform.
-By using Workdistro, you agree to allow the platform to manage and make decisions on disputes where necessary.`,
-
-  platformUse: `Workdistro is designed to operate as a complete system. Users are expected to engage with services through the platform and not use it as a starting point for arrangements outside Workdistro.
-Any attempt to take transactions or service relationships off-platform undermines accountability and may result in account suspension.`,
-
-  liability: `Workdistro is built to deliver reliable outcomes, but there may be situations beyond our control. While we work to ensure service quality and proper resolution of issues, Workdistro is not liable for indirect or unforeseen damages outside the scope of the service provided.
-Our responsibility is to manage the process and resolve issues fairly within the system.`,
-
+  howItWorks: `Workdistro handles the full service process. When a request is made, we take responsibility for matching the right professional, setting the pricing, coordinating delivery, and stepping in if anything goes wrong.\nPricing is fixed based on the service type. Clients are protected from open profiles or negotiate directly. The system is designed to remove that uncertainty and replace it with a managed, reliable process.\nUsing Workdistro means agreeing to this structure — where the platform manages the outcome, not just the connection.`,
+  userAccounts: `To use Workdistro, you may be required to create an account and provide accurate information. This includes your name, contact details, and any information needed to deliver services properly.\nYou are responsible for maintaining the accuracy of your account and keeping your login details secure. Any activity carried out through your account is considered your responsibility.\nWorkdistro reserves the right to suspend or remove accounts that misuse the platform or violate these terms.`,
+  serviceRequests: `When submitting a request, you are expected to provide clear and accurate details about the task. This helps us match the right professional and ensure the work is completed correctly.\nYou are also responsible for ensuring that the environment is suitable for the service to be delivered. This includes providing access where necessary and communicating any specific requirements in advance.\nWorkdistro may decline or adjust requests if the details provided are incomplete or fall outside the scope of supported services.`,
+  professionals: `Professionals on Workdistro are verified service providers who operate within a structured system. They are expected to deliver services to a high standard, maintain professionalism, and follow platform guidelines at all times.\nTheir performance is tracked through ratings, job history, and accountability measures. This ensures that every professional on the platform is part of a system that prioritises reliability and consistency.`,
+  pricing: `Pricing on Workdistro is fixed based on the type of service requested. This removes the need for negotiation and ensures clarity from the start.\nAll payments are processed through the platform using secure payment systems. Clients are expected to complete payments as required for services to be delivered.\nPayments to professionals are handled after successful job completion, in line with platform processes.`,
+  cancellations: `Plans change, and we plan for that. However, cancellations or changes to a request should be made within the appropriate timeframe.\nLate cancellations may result in charges, depending on how close the request is to the scheduled service time and the resources already allocated.\nRepeated cancellations or misuse of the system may lead to restrictions on your account.`,
+  disputes: `If something doesn't go as expected, Workdistro steps in.\nWe review the situation based on available information, including communication, job details, and platform records. Our goal is to resolve issues fairly and maintain trust on both sides of the platform.\nBy using Workdistro, you agree to allow the platform to manage and make decisions on disputes where necessary.`,
+  platformUse: `Workdistro is designed to operate as a complete system. Users are expected to engage with services through the platform and not use it as a starting point for arrangements outside Workdistro.\nAny attempt to take transactions or service relationships off-platform undermines accountability and may result in account suspension.`,
+  liability: `Workdistro is built to deliver reliable outcomes, but there may be situations beyond our control. While we work to ensure service quality and proper resolution of issues, Workdistro is not liable for indirect or unforeseen damages outside the scope of the service provided.\nOur responsibility is to manage the process and resolve issues fairly within the system.`,
   updates: `As Workdistro evolves, these terms may be updated to reflect improvements to the service, changes in operations, or new features. When updates are made, they will be reflected on this page. Continued use of the platform means acceptance of the updated terms.`,
-
-  closing: `Workdistro exists to make home services reliable — not uncertain, not stressful, not left to chance.
-These terms are part of how that reliability is built and maintained.
-Your home is waiting.`,
+  closing: `Workdistro exists to make home services reliable — not uncertain, not stressful, not left to chance.\nThese terms are part of how that reliability is built and maintained.\nYour home is waiting.`,
 };
 
 const faqs = [
-  { question: "What does Workdistro actually do?", answer: "We handle a lot of what needs to get done. We handle the rest — from matching to follow-up. Verified professionals. Fixed pricing. No back and forth." },
+  { question: "What does Workdistro actually do?", answer: "We handle a lot of what needs to get done — from matching to follow-up. Verified professionals. Fixed pricing. No back and forth." },
   { question: "How do I request a service?", answer: "Simply send your list through the platform. Include what you need — cleaning, laundry, groceries, or other home services — and we'll take it from there." },
   { question: "Do I choose the professional myself?", answer: "No. We match the right professional to your task. Every professional is verified, rated, and accountable." },
   { question: "How is pricing determined?", answer: "Pricing is fixed based on the service. No negotiation at your door, no surprises." },
@@ -80,8 +51,8 @@ const faqs = [
 ];
 
 const sidebarSections = [
-  { id: "privacy-policy", label: "Privacy Policy" },
-  { id: "terms-of-service", label: "Terms of Service" },
+  { id: "privacy-policy", label: "Privacy Policy", indent: false },
+  { id: "terms-of-service", label: "Terms of Service", indent: false },
   { id: "tos-introduction", label: "Introduction", indent: true },
   { id: "tos-how-it-works", label: "How Workdistro Works", indent: true },
   { id: "tos-user-accounts", label: "User Accounts", indent: true },
@@ -97,7 +68,7 @@ const sidebarSections = [
 ];
 
 /* ─────────────────────────────────────────────
-   SUB-COMPONENTS
+   ICONS
 ───────────────────────────────────────────── */
 function IconInstagram() {
   return (
@@ -124,6 +95,9 @@ function IconWhatsApp() {
   );
 }
 
+/* ─────────────────────────────────────────────
+   SUB-COMPONENTS
+───────────────────────────────────────────── */
 function FAQItem({ question, answer }: { question: string; answer: string }) {
   const [open, setOpen] = useState(false);
   return (
@@ -160,9 +134,7 @@ function Prose({ text }: { text: string }) {
   return (
     <>
       {text.split("\n\n").map((para, i) => (
-        <p key={i} className="text-sm text-[#4B5563] leading-relaxed mb-4 last:mb-0">
-          {para}
-        </p>
+        <p key={i} className="text-sm text-[#4B5563] leading-relaxed mb-4 last:mb-0">{para}</p>
       ))}
     </>
   );
@@ -174,25 +146,20 @@ function Prose({ text }: { text: string }) {
 export default function PrivacyTermsPage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("privacy-policy");
-  const [alert, setAlert] = useState<{ show: boolean; message: string; type?: "success" | "error" | "info" }>({ show: false, message: "", type: "info" });
 
   useEffect(() => {
     const ids = sidebarSections.map((s) => s.id);
     const observers: IntersectionObserver[] = [];
-
     ids.forEach((id) => {
       const el = document.getElementById(id);
       if (!el) return;
       const obs = new IntersectionObserver(
-        ([entry]) => {
-          if (entry.isIntersecting) setActiveSection(id);
-        },
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
         { rootMargin: "-30% 0px -60% 0px" }
       );
       obs.observe(el);
       observers.push(obs);
     });
-
     return () => observers.forEach((o) => o.disconnect());
   }, []);
 
@@ -217,7 +184,9 @@ export default function PrivacyTermsPage() {
           </nav>
           <button aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((v) => !v)} className="md:hidden p-2 rounded-lg border border-gray-200">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-              {menuOpen ? <path d="M6 18L18 6M6 6l12 12" stroke="#0D1B2A" strokeWidth="2" strokeLinecap="round" /> : <path d="M4 6h16M4 12h16M4 18h16" stroke="#0D1B2A" strokeWidth="2" strokeLinecap="round" />}
+              {menuOpen
+                ? <path d="M6 18L18 6M6 6l12 12" stroke="#0D1B2A" strokeWidth="2" strokeLinecap="round" />
+                : <path d="M4 6h16M4 12h16M4 18h16" stroke="#0D1B2A" strokeWidth="2" strokeLinecap="round" />}
             </svg>
           </button>
         </div>
@@ -234,43 +203,110 @@ export default function PrivacyTermsPage() {
         </AnimatePresence>
       </header>
 
-      {/* ── Page Hero ── */}
+      {/* ── Hero ─────────────────────────────────────────────────────
+          Strategy:
+          • `overflow-hidden` clips the pattern that bleeds beyond the section
+          • On mobile: text on top, pattern below — full-width, anchored to bottom
+          • On desktop: text on the left half, pattern fills the entire right half
+            absolutely positioned so it can bleed top/bottom out of the padded area
+      ──────────────────────────────────────────────────────────────── */}
       <section className="relative bg-[#141941] overflow-hidden">
-        <div className="max-w-6xl mx-auto md:px-5  flex flex-col md:flex-row md:items-center">
-          <div className="relative z-10">
+
+        {/* ── DESKTOP layout ── */}
+        {/*
+          The section itself is `relative overflow-hidden`.
+          The text lives in the normal max-w-6xl container (left half).
+          The pattern is `absolute` from the true right edge of the viewport
+          to the horizontal centre — so it always bleeds flush to the screen edge.
+        */}
+        <div className="hidden md:block">
+          {/* Fixed-height container so absolute children have something to fill */}
+          <div className="relative min-h-[320px] lg:min-h-[360px]">
+
+            {/* Text — inside the content container, left half only */}
+            <div className="relative z-10 max-w-6xl mx-auto px-5 h-full">
+              <div className="w-1/2 flex flex-col justify-center py-16">
+                <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition mb-8">
+                  <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
+                    <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Back
+                </Link>
+                <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight mb-4">
+                  Privacy &amp;{" "}
+                  <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">
+                    Terms
+                  </span>
+                </h1>
+                <p className="text-gray-400 text-sm max-w-sm leading-relaxed mb-3">
+                  Everything you need to know about how Workdistro works and how your data is handled.
+                </p>
+                <p className="text-xs text-gray-500">Last updated: April 2026</p>
+              </div>
+            </div>
+
+            {/* Pattern — absolute, anchored to the true right edge of the viewport,
+                spanning from centre to right. `left: 50%` aligns the left edge of
+                the image with the viewport midpoint; `right: 0` stretches to edge. */}
+            <div
+              aria-hidden="true"
+              className="absolute inset-y-0 right-0 left-1/2 pointer-events-none"
+            >
+              <Image
+                src="/images/pattern.png"
+                alt=""
+                fill
+                className="object-cover object-left-top"
+                priority
+                sizes="50vw"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* ── MOBILE layout ── */}
+        <div className="md:hidden flex flex-col">
+
+          {/* Text block — extra bottom padding creates the gap before the pattern */}
+          <div className="relative z-10 px-5 pt-8 pb-12">
             <Link href="/" className="inline-flex items-center gap-1.5 text-xs text-gray-400 hover:text-white transition mb-6">
               <svg viewBox="0 0 16 16" fill="none" className="w-3.5 h-3.5" aria-hidden="true">
                 <path d="M10 12L6 8l4-4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
               Back
             </Link>
-
-            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white leading-tight mb-4">
-              Privacy &nbsp;
-              <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">Terms</span>
+            <h1 className="text-4xl font-bold text-white leading-tight mb-3">
+              Privacy &amp;{" "}
+              <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-0.5 -rotate-1 text-[#141941] font-bold">
+                Terms
+              </span>
             </h1>
-            <p className="text-gray-400 text-sm max-w-md leading-relaxed mb-3">
+            <p className="text-gray-400 text-sm leading-relaxed mb-2">
               Everything you need to know about how Workdistro works and how your data is handled.
             </p>
             <p className="text-xs text-gray-500">Last updated: April 2026</p>
           </div>
-          <div className="relative mt-8 md:mt-0 md:flex-1 -mx-5 md:mx-0">
+
+          {/* Pattern image — full width, cropped top, bleeds to edges */}
+          <div className="relative w-full h-[260px] overflow-hidden" aria-hidden="true">
             <Image
               src="/images/pattern.png"
               alt=""
-              width={400}
-              height={300}
-              className="w-full h-auto object-contain md:h-full md:object-right-top"
+              fill
+              className="object-cover object-top"
               priority
+              sizes="100vw"
             />
           </div>
         </div>
+
       </section>
 
-      {/* ── Main Content: Sidebar + Body ── */}
+      {/* ── Main content ── */}
       <section className="max-w-6xl mx-auto px-5 py-12 md:py-16">
         <div className="grid md:grid-cols-[220px_1fr] gap-10 md:gap-14 items-start">
 
+          {/* Sidebar */}
           <aside className="hidden md:block md:sticky md:top-28 self-start">
             <nav aria-label="Page sections">
               <ul className="space-y-0.5">
@@ -278,7 +314,12 @@ export default function PrivacyTermsPage() {
                   <li key={section.id}>
                     <button
                       onClick={() => scrollTo(section.id)}
-                      className={`w-full text-left text-xs py-1.5 transition rounded ${section.indent ? "pl-4" : "font-semibold"} ${activeSection === section.id ? "text-[#31DE9E] font-semibold" : "text-[#4B5563] hover:text-[#141941]"}`}
+                      className={`w-full text-left text-xs py-1.5 transition rounded
+                        ${section.indent ? "pl-4" : "font-semibold"}
+                        ${activeSection === section.id
+                          ? "text-[#31DE9E] font-semibold"
+                          : "text-[#4B5563] hover:text-[#141941]"
+                        }`}
                     >
                       {section.label}
                     </button>
@@ -288,74 +329,42 @@ export default function PrivacyTermsPage() {
             </nav>
           </aside>
 
+          {/* Body */}
           <article className="min-w-0">
-            <section id="privacy-policy" className="scroll-mt-28 mb-14">
+            <div id="privacy-policy" className="scroll-mt-28 mb-14">
               <h2 className="text-2xl font-bold text-[#141941] mb-6 pb-3 border-b border-gray-100">Privacy Policy</h2>
               <Prose text={privacyContent} />
-            </section>
+            </div>
 
-            <section id="terms-of-service" className="scroll-mt-28">
+            <div id="terms-of-service" className="scroll-mt-28">
               <h2 className="text-2xl font-bold text-[#141941] mb-8 pb-3 border-b border-gray-100">Terms of Service</h2>
-
-              <ContentSection id="tos-introduction" title="Introduction">
-                <Prose text={tosContent.introduction} />
-              </ContentSection>
-
-              <ContentSection id="tos-how-it-works" title="How Workdistro Works">
-                <Prose text={tosContent.howItWorks} />
-              </ContentSection>
-
-              <ContentSection id="tos-user-accounts" title="User Accounts">
-                <Prose text={tosContent.userAccounts} />
-              </ContentSection>
-
-              <ContentSection id="tos-service-requests" title="Service Requests">
-                <Prose text={tosContent.serviceRequests} />
-              </ContentSection>
-
-              <ContentSection id="tos-professionals" title="Professionals on the Platform">
-                <Prose text={tosContent.professionals} />
-              </ContentSection>
-
-              <ContentSection id="tos-pricing" title="Pricing and Payments">
-                <Prose text={tosContent.pricing} />
-              </ContentSection>
-
-              <ContentSection id="tos-cancellations" title="Cancellations and Changes">
-                <Prose text={tosContent.cancellations} />
-              </ContentSection>
-
-              <ContentSection id="tos-disputes" title="Disputes and Issue Resolution">
-                <Prose text={tosContent.disputes} />
-              </ContentSection>
-
-              <ContentSection id="tos-platform-use" title="Platform Use">
-                <Prose text={tosContent.platformUse} />
-              </ContentSection>
-
-              <ContentSection id="tos-liability" title="Limitation of Liability">
-                <Prose text={tosContent.liability} />
-              </ContentSection>
-
-              <ContentSection id="tos-updates" title="Updates to These Terms">
-                <Prose text={tosContent.updates} />
-              </ContentSection>
-
-              <ContentSection id="tos-closing" title="Closing">
-                <Prose text={tosContent.closing} />
-              </ContentSection>
-            </section>
+              <ContentSection id="tos-introduction" title="Introduction"><Prose text={tosContent.introduction} /></ContentSection>
+              <ContentSection id="tos-how-it-works" title="How Workdistro Works"><Prose text={tosContent.howItWorks} /></ContentSection>
+              <ContentSection id="tos-user-accounts" title="User Accounts"><Prose text={tosContent.userAccounts} /></ContentSection>
+              <ContentSection id="tos-service-requests" title="Service Requests"><Prose text={tosContent.serviceRequests} /></ContentSection>
+              <ContentSection id="tos-professionals" title="Professionals on the Platform"><Prose text={tosContent.professionals} /></ContentSection>
+              <ContentSection id="tos-pricing" title="Pricing and Payments"><Prose text={tosContent.pricing} /></ContentSection>
+              <ContentSection id="tos-cancellations" title="Cancellations and Changes"><Prose text={tosContent.cancellations} /></ContentSection>
+              <ContentSection id="tos-disputes" title="Disputes and Issue Resolution"><Prose text={tosContent.disputes} /></ContentSection>
+              <ContentSection id="tos-platform-use" title="Platform Use"><Prose text={tosContent.platformUse} /></ContentSection>
+              <ContentSection id="tos-liability" title="Limitation of Liability"><Prose text={tosContent.liability} /></ContentSection>
+              <ContentSection id="tos-updates" title="Updates to These Terms"><Prose text={tosContent.updates} /></ContentSection>
+              <ContentSection id="tos-closing" title="Closing"><Prose text={tosContent.closing} /></ContentSection>
+            </div>
           </article>
         </div>
       </section>
 
+      {/* ── FAQ ── */}
       <section className="py-16 md:py-20 bg-white border-t border-gray-100">
         <div className="max-w-6xl mx-auto px-5">
           <div className="grid md:grid-cols-2 gap-10 md:gap-16 items-start">
             <div className="md:sticky md:top-28">
               <h2 className="text-3xl sm:text-4xl font-extrabold text-[#141941] leading-tight">
-                Still have questions? <br />
-                We&apos;ve got <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">answers</span>
+                Still have questions?{" "}
+                <br />
+                We&apos;ve got{" "}
+                <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">answers</span>
               </h2>
             </div>
             <div className="divide-y divide-gray-100">
@@ -367,95 +376,26 @@ export default function PrivacyTermsPage() {
         </div>
       </section>
 
+      {/* ── CTA ── */}
       <section className="max-w-6xl mx-auto px-5 pb-16 md:pb-20">
         <div className="overflow-hidden grid grid-cols-1 md:grid-cols-2 min-h-[300px]">
-          <div className="order-2 md:order-1 bg-[#141941] px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 flex flex-col justify-center relative overflow-hidden">
-            <div className="relative z-10">
-              <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-4">
-                Try it once. You <br />
-                <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">won&apos;t</span> go back
-              </h2>
-              <p className="text-white/80 text-sm mb-7">Send your list. We&apos;ll handle the rest.</p>
-              <Link href="/booking" className="inline-block text-center px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
-                Book a service
-              </Link>
-            </div>
+          <div className="order-2 md:order-1 bg-[#141941] px-6 py-8 sm:px-8 sm:py-10 md:px-10 md:py-12 flex flex-col justify-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-white leading-snug mb-4">
+              Try it once. You{" "}
+              <br />
+              <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#0D1B2A]">won&apos;t</span>{" "}
+              go back
+            </h2>
+            <p className="text-white/80 text-sm mb-7">Send your list. We&apos;ll handle the rest.</p>
+            <Link href="/booking" className="inline-block text-center px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
+              Book a service
+            </Link>
           </div>
           <div className="order-1 md:order-2 relative bg-gray-100 min-h-[240px]">
             <Image src="/images/foldedClothes.png" alt="Laundry service" fill className="object-cover" sizes="100vw" />
           </div>
         </div>
       </section>
-
-      <footer className="border-t border-gray-100 bg-[#F5F5F5] pt-12 pb-8">
-        <div className="max-w-6xl mx-auto px-5">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-1">
-              <p className="text-sm font-bold text-[#1D1D1D] mb-2">Your home is waiting.</p>
-              <p className="text-sm sm:text-xs text-[#1D1D1D] leading-relaxed mb-5">All you need to do is send us the list and we&apos;ll handle the rest.</p>
-              <div className="flex gap-3">
-                {[
-                  { href: "https://www.instagram.com/workdistro", label: "Instagram", icon: <IconInstagram /> },
-                  { href: "https://x.com/workdistro", label: "X", icon: <IconX /> },
-                  { href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM", label: "WhatsApp", icon: <IconWhatsApp /> },
-                ].map((s) => (
-                  <Link key={s.label} href={s.href} aria-label={s.label} target="_blank" className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-[#1D1D1D] hover:border-[#31DE9E] hover:text-[#31DE9E] transition">
-                    {s.icon}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Company</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                {['About', 'How It Works', 'Services', 'Contact'].map((l) => (
-                  <li key={l}><Link href="#" className="hover:text-[#31DE9E] transition">{l}</Link></li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Useful links</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                {[
-                  { label: "Apply as a Professional", href: "/application" },
-                  { label: "Professional Requirements", href: "#" },
-                  { label: "Book a Service", href: "/booking" },
-                  { label: "Join our community", href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM" },
-                ].map((l) => (
-                  <li key={l.label}><Link href={l.href} className="hover:text-[#31DE9E] transition">{l.label}</Link></li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Support</p>
-              <ul className="space-y-2 text-xs text-[#1D1D1D]">
-                {[
-                  { label: "Help Center", href: "#" },
-                  { label: "FAQs", href: "#" },
-                  { label: "Terms of Service", href: "/privacy" },
-                  { label: "Privacy & Terms", href: "/privacy" },
-                ].map((l) => (
-                  <li key={l.label}><Link href={l.href} className="hover:text-[#31DE9E] transition">{l.label}</Link></li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div className="w-full py-6 -mx-5 px-5">
-            <div className="relative w-full h-[130px] md:h-[180px]">
-              <Image src="/images/footerLogo.png" alt="Workdistro" fill className="object-contain object-left" sizes="100vw" />
-            </div>
-          </div>
-
-          <div className="border-t border-gray-200 pt-6 flex md:flex-row items-center justify-between gap-2">
-            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Workdistro.</p>
-            <p className="text-xs text-gray-400">All rights reserved.</p>
-          </div>
-        </div>
-      </footer>
 
     </main>
   );
