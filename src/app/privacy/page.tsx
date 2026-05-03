@@ -169,7 +169,7 @@ export default function PrivacyTermsPage() {
   };
 
   return (
-    <main className="bg-white text-[#0D1B2A] overflow-x-hidden">
+    <main className="bg-white text-[#0D1B2A]">
 
       {/* ── Navbar ── */}
       <header className="sticky top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
@@ -304,10 +304,10 @@ export default function PrivacyTermsPage() {
 
       {/* ── Main content ── */}
       <section className="max-w-6xl mx-auto px-5 py-12 md:py-16">
-        <div className="grid md:grid-cols-[220px_1fr] gap-10 md:gap-14 items-start">
+        <div className="grid grid-cols-1 gap-10 md:grid-cols-[220px_minmax(0,1fr)] md:items-start">
 
           {/* Sidebar */}
-          <aside className="hidden md:block md:sticky md:top-28 self-start">
+          <aside className="hidden md:block md:w-[220px] self-start sticky top-28">
             <nav aria-label="Page sections">
               <ul className="space-y-0.5">
                 {sidebarSections.map((section) => (
@@ -396,6 +396,74 @@ export default function PrivacyTermsPage() {
           </div>
         </div>
       </section>
+
+      {/* ── Footer ── */}
+      <footer className="border-t border-gray-100 bg-[#F5F5F5] pt-12 pb-8">
+        <div className="max-w-6xl mx-auto px-5">
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 mb-10">
+            <div className="md:col-span-1">
+              <p className="text-sm font-bold text-[#1D1D1D] mb-2">Your home is waiting.</p>
+              <p className="text-sm sm:text-xs text-[#1D1D1D] leading-relaxed mb-5">All you need to do is send us the list and we&apos;ll handle the rest.</p>
+              <div className="flex gap-3">
+                {[
+                  { href: "https://www.instagram.com/workdistro", label: "Instagram", icon: <IconInstagram /> },
+                  { href: "https://x.com/workdistro", label: "X", icon: <IconX /> },
+                  { href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM", label: "WhatsApp", icon: <IconWhatsApp /> },
+                ].map((s) => (
+                  <Link key={s.label} href={s.href} aria-label={s.label} target="_blank" className="w-10 h-10 rounded-full border border-gray-300 bg-white flex items-center justify-center text-[#1D1D1D] hover:border-[#31DE9E] hover:text-[#31DE9E] transition">
+                    {s.icon}
+                  </Link>
+                ))}
+              </div>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Company</p>
+              <ul className="space-y-2 text-xs text-[#1D1D1D]">
+                {["About", "How It Works", "Services", "Contact"].map((l) => (
+                  <li key={l}><Link href="#" className="hover:text-[#31DE9E] transition">{l}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Useful links</p>
+              <ul className="space-y-2 text-xs text-[#1D1D1D]">
+                {[
+                  { label: "Apply as a Professional", href: "/application" },
+                  { label: "Professional Requirements", href: "#" },
+                  { label: "Book a Service", href: "/booking" },
+                  { label: "Join our community", href: "https://chat.whatsapp.com/Hk5JXPsptxn1n4JX7Z9sIM" },
+                ].map((l) => (
+                  <li key={l.label}><Link href={l.href} className="hover:text-[#31DE9E] transition">{l.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="text-sm font-semibold text-[#1D1D1D] mb-3">Support</p>
+              <ul className="space-y-2 text-xs text-[#1D1D1D]">
+                {[
+                  { label: "Help Center", href: "#" },
+                  { label: "FAQs", href: "#" },
+                  { label: "Terms of Service", href: "/privacy#terms-of-service" },
+                  { label: "Privacy & Terms", href: "/privacy#privacy-policy" },
+                ].map((l) => (
+                  <li key={l.label}><Link href={l.href} className="hover:text-[#31DE9E] transition">{l.label}</Link></li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          <div className="w-full py-6 -mx-5 px-5">
+            <div className="relative w-full h-[130px] md:h-[180px]">
+              <Image src="/images/footerLogo.png" alt="Workdistro" fill className="object-contain object-left" sizes="100vw" />
+            </div>
+          </div>
+
+          <div className="border-t border-gray-200 pt-6 flex md:flex-row items-center justify-between gap-2">
+            <p className="text-xs text-gray-400">© {new Date().getFullYear()} Workdistro.</p>
+            <p className="text-xs text-gray-400">All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
 
     </main>
   );

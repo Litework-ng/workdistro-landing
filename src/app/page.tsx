@@ -243,7 +243,7 @@ export default function Home() {
                     ))}
                   </div>
                   <Link href="/application" className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#31DE9E] text-white font-semibold hover:bg-[#16A34A] transition text-sm">
-                    Apply as a Professional <span className="text-base leading-none">↗</span>
+                    <span className="text-base leading-none">\u2197</span>
                   </Link>
                 </motion.div>
               )}
@@ -285,13 +285,70 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Dark Banner ── */}
-      <section className="relative w-full overflow-hidden py-0">
-        <div className="relative w-full h-[220px] sm:h-[230px] md:h-[360px]">
-          <Image src="/images/mobileSectionAdditional.png" alt="Workdistro banner" fill className="object-contain sm:hidden" priority sizes="100vw" />
-          <Image src="/images/sectionAdditional.png" alt="Workdistro banner" fill className="object-contain hidden sm:block" priority sizes="100vw" />
+ <section className="relative bg-[#141941] overflow-hidden">
+
+  {/* Desktop layout */}
+  <div className="hidden md:block">
+    <div className="relative min-h-[320px] lg:min-h-[360px]">
+      {/* Text */}
+      <div className="relative z-10 max-w-6xl mx-auto px-5 h-full">
+        <div className="w-1/2 flex flex-col justify-center py-16">
+          <h2 className="text-3xl lg:text-5xl font-bold text-white leading-tight mb-4">
+            Home services{" "}
+            <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-1 -rotate-1 text-[#141941] font-bold">
+              shouldn’t
+            </span>{" "}
+            feel this hard
+          </h2>
+          
         </div>
-      </section>
+      </div>
+
+      {/* Pattern */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-y-0 right-0 left-1/2 pointer-events-none"
+      >
+        <Image
+          src="/images/Pattern.png"
+          alt=""
+          fill
+          className="object-cover object-left-top"
+          priority
+          sizes="50vw"
+        />
+      </div>
+    </div>
+  </div>
+
+  {/* Mobile layout — flex like desktop but scaled */}
+<div className="md:hidden flex flex-row items-center">
+  {/* Text block */}
+  <div className="w-1/2 px-5 py-8">
+    <h2 className="text-[20px] font-bold text-white  mb-2">
+      Home services{" "}
+      <span className="inline-flex items-center bg-[#FEEF3E] px-2 py-0.5 -rotate-1 text-[#141941] font-bold">
+        shouldn’t <br/>   
+      </span>{" "}
+      feel this hard
+    </h2>
+    
+  </div>
+
+ <div className="relative w-1/2 h-[160px] overflow-hidden block leading-none" aria-hidden="true">
+  <Image
+    src="/images/mobilePattern.png"
+    alt=""
+    fill
+    className="absolute inset-0 object-fill object-top align-middle"
+    priority
+    sizes="50vw"
+  />
+</div>
+</div>
+
+</section>
+
 
       {/* ── How It Works ── */}
       <section id="how-it-works" className="py-12 md:py-20 bg-white">
