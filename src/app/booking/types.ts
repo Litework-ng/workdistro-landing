@@ -24,6 +24,7 @@ export type LaundryDetails = {
 
 /* ---------- Grocery ---------- */
 export type GroceryDetails = {
+  serviceType?: "local-errands" | "market-shopping" | "supermarket-run"
   list?: string              // shopping list (textarea)
   budget?: number            // numeric for pricing logic
   storePreference?: string

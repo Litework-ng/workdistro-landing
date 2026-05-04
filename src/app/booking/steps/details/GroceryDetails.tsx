@@ -36,8 +36,39 @@ function parseNumber(value: string) {
           Grocery shopping details 🛒
         </h2>
         <p className="text-sm text-gray-500">
-          Service fee is ₦2,250. This helps us estimate your total cost.
+          Select your grocery service type so we can estimate the correct service fee.
         </p>
+      </div>
+
+      {/* Service type */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          Which grocery service do you need?
+        </label>
+        <select
+          className={inputClass}
+          value={grocery.serviceType ?? ""}
+          onChange={(e) =>
+            setData((prev) => ({
+              ...prev,
+              grocery: {
+                ...grocery,
+                serviceType: e.target.value as GroceryDetailsType["serviceType"],
+              },
+            }))
+          }
+        >
+          <option value="">Select service type</option>
+          <option value="local-errands">
+            Local errands (within 5km) – ₦4,000
+          </option>
+          <option value="market-shopping">
+            Market shopping – ₦8,000
+          </option>
+          <option value="supermarket-run">
+            Supermarket run – ₦6,000
+          </option>
+        </select>
       </div>
 
       {/* Shopping list */}

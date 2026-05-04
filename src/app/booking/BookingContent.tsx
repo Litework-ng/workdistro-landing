@@ -43,7 +43,9 @@ const STEPS = [
     component: GroceryDetails,
     condition: (data: BookingData) => data.service === "grocery",
     isValid: (data: BookingData) =>
-      !!data.grocery?.list && !!data.grocery?.budget,
+      !!data.grocery?.serviceType &&
+      !!data.grocery?.list &&
+      !!data.grocery?.budget,
   },
   {
     id: "schedule",
@@ -72,10 +74,10 @@ function estimatePrice(data: BookingData): number | null {
     case "cleaning": {
       if (!data.cleaning?.size) return null
       const prices = {
-        studio: 5000,
-        "1-bedroom": 6000,
-        "2-bedroom": 8000,
-        "3-bedroom": 10000,
+        studio: 15000,
+        "1-bedroom": 20000,
+        "2-bedroom": 35000,
+        "3-bedroom": 40000,
       } as const
       return prices[data.cleaning.size]
     }
@@ -83,9 +85,9 @@ function estimatePrice(data: BookingData): number | null {
     case "laundry": {
       if (!data.laundry?.loadSize) return null
       const loadPrices = {
-        small: 3000,
-        medium: 4500,
-        large: 6000,
+        small: 6000,
+        medium: 9000,
+        large: 12000,
       } as const
 
       const base = loadPrices[data.laundry.loadSize]
@@ -97,8 +99,15 @@ function estimatePrice(data: BookingData): number | null {
       return base + ironingFee + expressFee
     }
 
-    case "grocery":
-      return 2250
+    case "grocery": {
+      if (!data.grocery?.serviceType) return null
+      const groceryPrices = {
+        "local-errands": 4000,
+        "market-shopping": 8000,
+        "supermarket-run": 6000,
+      } as const
+      return groceryPrices[data.grocery.serviceType]
+    }
 
     default:
       return null

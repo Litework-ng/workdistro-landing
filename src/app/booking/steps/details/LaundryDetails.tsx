@@ -49,13 +49,13 @@ export default function LaundryDetails({
         >
           <option value="">Select load size</option>
           <option value="small">
-            Small (1 bag, ~10 items) – ₦3,000
+            Small load (1 bag, less than 10 items) – ₦6,000
           </option>
           <option value="medium">
-            Medium (2 bags, ~20 items) – ₦4,500
+            Medium load (2 bags, 10+ items) – ₦9,000
           </option>
           <option value="large">
-            Large (3+ bags, 30+ items) – ₦6,000
+            Large load (3+ bags, 30+ items) – ₦12,000
           </option>
         </select>
       </div>

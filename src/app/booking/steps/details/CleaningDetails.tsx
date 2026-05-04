@@ -49,16 +49,16 @@ export default function CleaningDetails({
         >
           <option value="">Select size</option>
           <option value="studio">
-            Studio / Self-Contain (₦5,000)
+            Studio / Self-Contain (2-3 hours) – ₦15,000
           </option>
           <option value="1-bedroom">
-            1-Bedroom (₦6,000)
+            Small apartment (1 bed, 3-4 hours) – ₦20,000
           </option>
           <option value="2-bedroom">
-            2-Bedroom (₦8,000)
+            Medium apartment (2 bed, 3-5 hours) – ₦35,000
           </option>
           <option value="3-bedroom">
-            3+ Bedroom (₦10,000)
+            Large apartment (3+ bed) – ₦40,000–₦45,000
           </option>
         </select>
       </div>

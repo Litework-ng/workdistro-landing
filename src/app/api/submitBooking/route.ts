@@ -10,7 +10,7 @@ export async function POST(req: Request) {
       process.env.SUPABASE_SERVICE_ROLE_KEY!
     )
 
-    console.log("Incoming data:", data)
+   
 
     const { error } = await supabase.from("service_requests").insert({
       service: data.service,
