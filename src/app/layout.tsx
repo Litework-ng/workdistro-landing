@@ -20,7 +20,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/images/metaImage.png",
+        url: "/images/metaImage.jpg",
         width: 1200,
         height: 630,
         alt: "WorkDistro – send your list and we’ll handle the rest",
@@ -31,7 +31,7 @@ export const metadata = {
     card: "summary_large_image",
     title: "WorkDistro",
     description: "Send the list. We handle the rest.",
-    images: ["/images/metaImage.png"],
+    images: ["/images/metaImage.jpg"],
   },
 };
 
